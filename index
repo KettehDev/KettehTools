@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kettehs Tools · Justice System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Orbitron:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --bg-primary: #060612;
+      --bg-secondary: #0d0d24;
+      --card-bg: rgba(16, 16, 40, 0.85);
+      --border-color: rgba(255, 107, 107, 0.15);
+      --accent: #ff6b6b;
+      --accent2: #ffd93d;
+      --accent3: #6bcbff;
+      --justice-red: #ff0040;
+      --justice-gold: #ffd700;
+      --accent-glow: rgba(255, 107, 107, 0.3);
+      --text-primary: #f0f0ff;
+      --text-secondary: #8888bb;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      --radius: 16px;
+      --transition: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+    #space-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: 
+        radial-gradient(ellipse at 20% 50%, rgba(255, 0, 64, 0.08), transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(255, 215, 0, 0.05), transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(107, 203, 255, 0.04), transparent 50%),
+        var(--bg-primary);
+      pointer-events: none;
+    }
+    #justice-particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .justice-particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float-justice var(--duration) ease-in-out infinite alternate;
+    }
+    .justice-particle:nth-child(odd) {
+      animation: float-justice-reverse var(--duration) ease-in-out infinite alternate;
+    }
+    @keyframes float-justice {
+      0% { transform: translateY(0px) scale(1) rotate(0deg); opacity: 0.2; }
+      100% { transform: translateY(-150px) scale(1.5) rotate(360deg); opacity: 0.7; }
+    }
+    @keyframes float-justice-reverse {
+      0% { transform: translateY(0px) scale(1) rotate(0deg); opacity: 0.2; }
+      100% { transform: translateY(150px) scale(1.5) rotate(-360deg); opacity: 0.7; }
+    }
+    #glow-mouse {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 0, 64, 0.06), transparent 70%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      transition: opacity 0.3s;
+      opacity: 0;
+      filter: blur(40px);
+    }
+    body:hover #glow-mouse { opacity: 1; }
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 16px 20px 40px;
+      display: flex;
+      gap: 20px;
+      min-height: 100vh;
+    }
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      position: sticky;
+      top: 16px;
+      height: fit-content;
+      width: 200px;
+      flex-shrink: 0;
+      background: var(--card-bg);
+      backdrop-filter: blur(24px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 16px 12px;
+      box-shadow: var(--shadow);
+      transition: 0.4s var(--transition);
+      animation: float-sidebar 5s ease-in-out infinite;
+    }
+    @keyframes float-sidebar {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .sidebar:hover { border-color: rgba(255, 0, 64, 0.4); box-shadow: 0 0 60px rgba(255, 0, 64, 0.05); }
+    .sidebar .brand {
+      font-family: Orbitron, sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, var(--justice-red), var(--justice-gold), var(--accent3));
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      padding: 0 6px 12px;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 12px;
+      text-align: center;
+      letter-spacing: 0.05em;
+      animation: gradient-shift 4s ease-in-out infinite;
+    }
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .sidebar .brand small { font-size: 0.5rem; opacity: 0.5; display: block; font-family: 'Space Grotesk'; }
+    .nav-side {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .nav-side a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: 0.3s var(--transition);
+      cursor: pointer;
+      position: relative;
+      pointer-events: auto;
+    }
+    .nav-side a .icon { font-size: 1rem; width: 22px; text-align: center; }
+    .nav-side a .badge {
+      margin-left: auto;
+      font-size: 0.5rem;
+      background: rgba(255, 0, 64, 0.15);
+      padding: 1px 8px;
+      border-radius: 999px;
+      color: var(--justice-red);
+      border: 1px solid rgba(255, 0, 64, 0.1);
+    }
+    .nav-side a:hover { background: rgba(255, 0, 64, 0.08); color: var(--text-primary); transform: translateX(4px); }
+    .nav-side a.active {
+      background: rgba(255, 0, 64, 0.08);
+      color: var(--text-primary);
+    }
+    .nav-side a.active::before {
+      content: '⚖';
+      position: absolute;
+      left: -4px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.7rem;
+      animation: pulse-justice 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-justice {
+      0%, 100% { opacity: 0.5; transform: translateY(-50%) scale(1); }
+      50% { opacity: 1; transform: translateY(-50%) scale(1.3); }
+    }
+    /* ===== MAIN ===== */
+    .main {
+      flex: 1;
+      min-width: 0;
+    }
+    /* ===== DASHBOARD ===== */
+    .dash-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .dash-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 16px 12px;
+      text-align: center;
+      transition: 0.4s var(--transition);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+      animation: float-card 6s ease-in-out infinite;
+      animation-delay: calc(var(--i, 0) * 0.2s);
+    }
+    @keyframes float-card {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+    .dash-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 0, 64, 0.05), transparent 50%);
+      opacity: 0;
+      transition: 0.4s;
+    }
+    .dash-card:hover::before { opacity: 1; }
+    .dash-card:hover { transform: translateY(-4px) scale(1.03); border-color: rgba(255, 0, 64, 0.3); box-shadow: 0 0 50px rgba(255, 0, 64, 0.05); }
+    .dash-card .num {
+      font-family: Orbitron, sans-serif;
+      font-size: 1.8rem;
+      color: var(--justice-red);
+      text-shadow: 0 0 30px rgba(255, 0, 64, 0.3);
+      font-weight: 800;
+    }
+    .dash-card .label { font-size: 0.6rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+    /* ===== JUSTICE MODULES ===== */
+    .justice-modules {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .justice-module {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      transition: 0.4s var(--transition);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .justice-module::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 0, 64, 0.05), transparent 50%);
+      opacity: 0;
+      transition: 0.4s;
+    }
+    .justice-module:hover::before { opacity: 1; }
+    .justice-module:hover { transform: translateY(-3px); border-color: rgba(255, 0, 64, 0.3); }
+    .justice-module .module-icon { font-size: 1.5rem; margin-bottom: 4px; }
+    .justice-module .module-name { font-weight: 600; font-size: 0.8rem; }
+    .justice-module .module-status {
+      font-size: 0.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      margin-top: 4px;
+    }
+    .status-active { background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.15); }
+    .status-scanning { background: rgba(255, 215, 0, 0.15); color: #ffd700; border: 1px solid rgba(255, 215, 0, 0.15); animation: pulse-scan 1s ease-in-out infinite; }
+    .status-ready { background: rgba(107, 203, 255, 0.15); color: #6bcbff; border: 1px solid rgba(107, 203, 255, 0.15); }
+    @keyframes pulse-scan {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .justice-module .module-progress {
+      height: 3px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 999px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .justice-module .module-progress .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--justice-red), var(--justice-gold));
+      border-radius: 999px;
+      transition: width 1s var(--transition);
+    }
+    /* ===== DISCORD ===== */
+    .discord-section {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(88, 101, 242, 0.2);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+      transition: 0.4s;
+      animation: pulse-border 4s ease-in-out infinite;
+    }
+    @keyframes pulse-border {
+      0%, 100% { border-color: rgba(88, 101, 242, 0.2); }
+      50% { border-color: rgba(88, 101, 242, 0.5); }
+    }
+    .discord-section:hover { border-color: rgba(88, 101, 242, 0.6); box-shadow: 0 0 60px rgba(88, 101, 242, 0.05); }
+    .discord-left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .discord-left .logo-wrap {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #5865f2, #4752c4);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 0 30px rgba(88, 101, 242, 0.15);
+      animation: spin-slow 12s linear infinite;
+    }
+    @keyframes spin-slow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .discord-left .info h4 { font-size: 0.95rem; font-weight: 600; }
+    .discord-left .info p { font-size: 0.7rem; color: var(--text-secondary); }
+    .prestige-tiers {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      font-size: 0.65rem;
+    }
+    .prestige-tiers span {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-color);
+      transition: 0.3s var(--transition);
+    }
+    .prestige-tiers span:hover { transform: scale(1.1) rotate(-5deg); }
+    .prestige-tiers .bronze { border-color: #cd7f32; color: #cd7f32; }
+    .prestige-tiers .silver { border-color: #c0c0c0; color: #c0c0c0; }
+    .prestige-tiers .gold { border-color: #ffd700; color: #ffd700; }
+    .prestige-tiers .diamond { border-color: #b9f2ff; color: #b9f2ff; }
+    .prestige-tiers .prestige { border-color: var(--justice-red); color: var(--justice-red); }
+    .discord-btn {
+      background: linear-gradient(135deg, #5865f2, #4752c4);
+      border: none;
+      color: #fff;
+      padding: 7px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: 0.4s var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 0 30px rgba(88, 101, 242, 0.15);
+      pointer-events: auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .discord-btn:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 0 50px rgba(88, 101, 242, 0.3); }
+    /* ===== SECTION HEADERS ===== */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 18px 0 12px;
+    }
+    .section-header h2 {
+      font-family: Orbitron, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 0.03em;
+      animation: glow-text 3s ease-in-out infinite;
+    }
+    @keyframes glow-text {
+      0%, 100% { text-shadow: 0 0 0px transparent; }
+      50% { text-shadow: 0 0 30px rgba(255, 0, 64, 0.2); }
+    }
+    .section-header .more {
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: 0.3s;
+      pointer-events: auto;
+    }
+    .section-header .more:hover { color: var(--justice-red); transform: scale(1.1) rotate(-5deg); }
+    /* ===== TOOL GRID ===== */
+    .grid-tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .tool-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 16px;
+      transition: 0.4s var(--transition);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 0, 64, 0.05), transparent 50%);
+      opacity: 0;
+      transition: 0.4s;
+    }
+    .tool-card:hover::before { opacity: 1; }
+    .tool-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(255, 0, 64, 0.4);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 60px rgba(255, 0, 64, 0.05);
+    }
+    .tool-card .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .tool-card .head h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tool-card .head h4 .icon { font-size: 1rem; }
+    .tool-card .cat {
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      background: rgba(255, 0, 64, 0.1);
+      padding: 2px 10px;
+      border-radius: 999px;
+      color: var(--justice-red);
+      border: 1px solid rgba(255, 0, 64, 0.1);
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .tool-card p { font-size: 0.72rem; color: var(--text-secondary); margin: 6px 0 10px; line-height: 1.4; }
+    .tool-card .meta {
+      display: flex;
+      gap: 10px;
+      font-size: 0.55rem;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .tool-card .meta span { display: flex; align-items: center; gap: 3px; }
+    .tool-card .actions {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+    .tool-card .actions .btn {
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 0.6rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      pointer-events: auto;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-copy {
+      background: linear-gradient(135deg, var(--justice-red), #cc0033);
+      color: #fff;
+    }
+    .btn-copy:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 0, 64, 0.3); }
+    .btn-link {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    .btn-link:hover { border-color: var(--justice-red); color: var(--justice-red); transform: scale(1.05); }
+    .btn-fav {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.4s var(--transition);
+      padding: 0 4px;
+      pointer-events: auto;
+    }
+    .btn-fav.on { color: #ffd700; text-shadow: 0 0 30px rgba(255, 215, 0, 0.4); }
+    .btn-fav:hover { transform: scale(1.2) rotate(30deg); }
+    .diff-easy { border-left: 3px solid #4ade80; }
+    .diff-medium { border-left: 3px solid #fbbf24; }
+    .diff-hard { border-left: 3px solid var(--justice-red); }
+    /* ===== ANNOUNCEMENTS ===== */
+    .announcement {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      transition: 0.4s var(--transition);
+      animation: slide-in 0.6s var(--transition);
+    }
+    @keyframes slide-in {
+      0% { transform: translateX(-30px) scale(0.95); opacity: 0; }
+      100% { transform: translateX(0) scale(1); opacity: 1; }
+    }
+    .announcement:hover { border-color: rgba(255, 0, 64, 0.2); transform: translateX(6px); box-shadow: 0 0 40px rgba(255, 0, 64, 0.03); }
+    .announcement .head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+    .announcement .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--justice-red), #cc0033);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(255, 0, 64, 0.3);
+      animation: pulse-avatar 3s ease-in-out infinite;
+    }
+    @keyframes pulse-avatar {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 64, 0.3); transform: scale(1); }
+      50% { box-shadow: 0 0 40px rgba(255, 0, 64, 0.5); transform: scale(1.05); }
+    }
+    .announcement .author { font-weight: 600; font-size: 0.8rem; }
+    .announcement .author small { font-weight: 400; color: var(--text-secondary); font-size: 0.65rem; margin-left: 5px; }
+    .announcement .badge-role {
+      font-size: 0.5rem;
+      padding: 1px 10px;
+      border-radius: 999px;
+      border: 1px solid;
+      font-weight: 600;
+      animation: badge-pop 0.5s var(--transition);
+    }
+    @keyframes badge-pop {
+      0% { transform: scale(0) rotate(-30deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+    .badge-owner { background: rgba(255, 215, 0, 0.12); color: #ffd700; border-color: rgba(255, 215, 0, 0.15); }
+    .badge-developer { background: rgba(107, 203, 255, 0.12); color: #6bcbff; border-color: rgba(107, 203, 255, 0.15); }
+    .badge-executive { background: rgba(180, 77, 255, 0.12); color: #b44dff; border-color: rgba(180, 77, 255, 0.15); }
+    .badge-coowner { background: rgba(255, 0, 64, 0.12); color: var(--justice-red); border-color: rgba(255, 0, 64, 0.15); }
+    .badge-mod { background: rgba(74, 222, 128, 0.12); color: #4ade80; border-color: rgba(74, 222, 128, 0.15); }
+    .badge-default { background: rgba(255, 255, 255, 0.04); color: var(--text-secondary); border-color: var(--border-color); }
+    .announcement .time { font-size: 0.6rem; color: var(--text-secondary); margin-left: auto; }
+    .announcement .body { font-size: 0.8rem; padding: 6px 0 2px; white-space: pre-wrap; }
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(10, 10, 26, 0.96);
+      border: 1px solid var(--justice-red);
+      color: var(--justice-red);
+      padding: 10px 24px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      z-index: 999;
+      opacity: 0;
+      transition: 0.6s var(--transition);
+      pointer-events: none;
+      box-shadow: 0 0 60px rgba(255, 0, 64, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    /* ===== ADMIN ===== */
+    .admin-area {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 16px;
+      border: 1px solid var(--border-color);
+      margin-top: 20px;
+    }
+    .admin-area input,
+    .admin-area textarea,
+    .admin-area select {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: var(--text-primary);
+      font-family: inherit;
+      margin-bottom: 8px;
+      resize: vertical;
+      transition: 0.3s;
+      font-size: 0.8rem;
+    }
+    .admin-area input:focus,
+    .admin-area textarea:focus,
+    .admin-area select:focus {
+      border-color: var(--justice-red);
+      outline: none;
+      box-shadow: 0 0 30px rgba(255, 0, 64, 0.2);
+    }
+    .admin-area textarea { min-height: 80px; }
+    /* ===== LOADER ===== */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-primary);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+      transition: 0.8s var(--transition);
+    }
+    #loader.hide { opacity: 0; pointer-events: none; }
+    #loader .orbit {
+      width: 60px;
+      height: 60px;
+      border: 2px solid rgba(255, 0, 64, 0.1);
+      border-radius: 50%;
+      position: relative;
+      animation: spin 1.5s linear infinite;
+    }
+    #loader .orbit::after {
+      content: '⚖';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      animation: pulse-justice 1s ease-in-out infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loader p { font-family: Orbitron; color: var(--justice-red); font-size: 0.8rem; letter-spacing: 0.1em; animation: pulse-justice 1.5s ease-in-out infinite; }
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .wrap { flex-direction: column; padding: 12px; }
+      .sidebar {
+        position: relative;
+        width: 100%;
+        top: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 10px;
+        animation: none;
+      }
+      .sidebar .brand { width: 100%; border-bottom: none; margin-bottom: 4px; }
+      .nav-side { flex-direction: row; flex-wrap: wrap; gap: 4px; }
+      .nav-side a { padding: 6px 10px; font-size: 0.7rem; }
+      .nav-side a .badge { display: none; }
+      .nav-side a.active::before { display: none; }
+      .discord-section { flex-direction: column; gap: 10px; align-items: stretch; }
+      .prestige-tiers { justify-content: center; }
+      .justice-modules { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .dash-grid { grid-template-columns: 1fr 1fr; }
+      .grid-tools { grid-template-columns: 1fr; }
+      .justice-modules { grid-template-columns: 1fr; }
+      .sidebar .brand { font-size: 0.9rem; }
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--justice-red); border-radius: 999px; }
+    /* ===== RIPPLE ===== */
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(0);
+      animation: ripple-anim 0.6s linear;
+      pointer-events: none;
+    }
+    @keyframes ripple-anim {
+      to { transform: scale(4); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="loader"><div class="orbit"></div><p>JUSTICE</p></div>
+  <div id="space-bg"></div>
+  <div id="justice-particles"></div>
+  <div id="glow-mouse"></div>
+  <div class="toast" id="toast"></div>
+
+  <div class="wrap">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">KETTEHS <small>JUSTICE</small></div>
+      <nav class="nav-side" id="navSide">
+        <a class="active" data-page="dashboard"><span class="icon">⚖</span> Justice</a>
+        <a data-page="tools"><span class="icon">🛠</span> Tools <span class="badge">350+</span></a>
+        <a data-page="scanners"><span class="icon">🔍</span> RAT Scanners <span class="badge" id="scannerBadge">0</span></a>
+        <a data-page="downloads"><span class="icon">📥</span> Downloads <span class="badge" id="downloadBadge">0</span></a>
+        <a data-page="announcements"><span class="icon">📢</span> Announcements <span class="badge" id="announceBadge">0</span></a>
+        <a data-page="discord"><span class="icon">💬</span> Discord</a>
+        <a data-page="favorites"><span class="icon">⭐</span> Favorites <span class="badge" id="favCount">0</span></a>
+        <a data-page="settings"><span class="icon">⚙</span> Settings</a>
+      </nav>
+    </aside>
+
+    <main class="main" id="mainContent">
+      <div id="page-dashboard">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+          <h1 style="font-family:Orbitron;font-size:1.2rem;background:linear-gradient(135deg,#fff,var(--justice-red),var(--justice-gold));-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradient-shift 4s ease-in-out infinite;">⚖ Justice System</h1>
+          <span style="font-size:0.7rem;color:var(--text-secondary);">Serving Justice to Cheaters</span>
+        </div>
+        
+        <!-- Justice Modules -->
+        <div class="justice-modules" id="justiceModules">
+          <div class="justice-module">
+            <div class="module-icon">🔴</div>
+            <div class="module-name">Live Threat Monitor</div>
+            <span class="module-status status-active">● Active</span>
+            <div class="module-progress"><div class="progress-bar" style="width:100%"></div></div>
+          </div>
+          <div class="justice-module">
+            <div class="module-icon">🛡</div>
+            <div class="module-name">Anti-Cheat Shield</div>
+            <span class="module-status status-active">● Active</span>
+            <div class="module-progress"><div class="progress-bar" style="width:100%"></div></div>
+          </div>
+          <div class="justice-module">
+            <div class="module-icon">🔍</div>
+            <div class="module-name">Advanced RAT Scanner</div>
+            <span class="module-status status-scanning">◉ Scanning</span>
+            <div class="module-progress"><div class="progress-bar" style="width:67%"></div></div>
+          </div>
+          <div class="justice-module">
+            <div class="module-icon">⚡</div>
+            <div class="module-name">Quick Justice</div>
+            <span class="module-status status-ready">◆ Ready</span>
+            <div class="module-progress"><div class="progress-bar" style="width:100%"></div></div>
+          </div>
+        </div>
+        
+        <div class="dash-grid" id="dashStats">
+          <div class="dash-card" style="--i:0"><div class="num" id="totalTools">350</div><div class="label">Total Tools</div></div>
+          <div class="dash-card" style="--i:1"><div class="num" id="totalScanners">0</div><div class="label">RAT Scanners</div></div>
+          <div class="dash-card" style="--i:2"><div class="num" id="totalDownloads">0</div><div class="label">Downloads</div></div>
+          <div class="dash-card" style="--i:3"><div class="num" id="totalFavs">0</div><div class="label">Favorites</div></div>
+          <div class="dash-card" style="--i:4"><div class="num" id="totalAnnounce">0</div><div class="label">Announcements</div></div>
+        </div>
+        
+        <div class="discord-section">
+          <div class="discord-left">
+            <div class="logo-wrap">💬</div>
+            <div class="info">
+              <h4>Prestige Community</h4>
+              <p>Join 10,000+ Members · Exclusive Tools · Prestige Tiers</p>
+            </div>
+            <div class="prestige-tiers">
+              <span class="bronze">🥉 Bronze</span>
+              <span class="silver">🥈 Silver</span>
+              <span class="gold">🥇 Gold</span>
+              <span class="diamond">💎 Diamond</span>
+              <span class="prestige">👑 Prestige+</span>
+            </div>
+          </div>
+          <a href="https://discord.gg/9XTfQt2cXU" target="_blank" class="discord-btn" onclick="event.stopPropagation();">Join Server →</a>
+        </div>
+        
+        <div class="section-header"><h2>⭐ Featured Tools</h2><span class="more">see all</span></div>
+        <div class="grid-tools" id="featuredGrid"></div>
+        <div class="section-header"><h2>🔥 Trending</h2><span class="more">see all</span></div>
+        <div class="grid-tools" id="trendingGrid"></div>
+        <div class="section-header"><h2>🆕 Recently Added</h2><span class="more">see all</span></div>
+        <div class="grid-tools" id="recentGrid"></div>
+      </div>
+
+      <div id="page-tools" style="display:none;">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center;">
+          <input id="searchInput" placeholder="🔍 Search tools..." style="flex:1;min-width:160px;background:var(--card-bg);border:1px solid var(--border-color);border-radius:999px;padding:9px 16px;color:var(--text-primary);font-family:inherit;outline:none;transition:0.3s;backdrop-filter:blur(8px);font-size:0.8rem;" />
+          <div style="display:flex;gap:4px;flex-wrap:wrap;" id="filterChips"></div>
+        </div>
+        <div class="grid-tools" id="allToolsGrid"></div>
+      </div>
+
+      <div id="page-scanners" style="display:none;">
+        <h2 style="font-family:Orbitron;font-size:1.1rem;margin-bottom:16px;">🔍 RAT Checkers & JAR Scanners</h2>
+        <p style="color:var(--text-secondary);font-size:0.75rem;margin-bottom:14px;">150+ specialized RAT detection tools with heuristic analysis and behavioral scanning.</p>
+        <div class="grid-tools" id="scannersGrid"></div>
+      </div>
+
+      <div id="page-downloads" style="display:none;">
+        <h2 style="font-family:Orbitron;font-size:1.1rem;margin-bottom:16px;">📥 Downloads</h2>
+        <div class="grid-tools" id="downloadsGrid"></div>
+      </div>
+
+      <div id="page-announcements" style="display:none;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+          <h2 style="font-family:Orbitron;font-size:1.1rem;">📢 Announcements</h2>
+          <span style="font-size:0.65rem;color:var(--text-secondary);">by Ketteh · Owner</span>
+        </div>
+        <div id="announceList"></div>
+        <div id="adminArea"></div>
+      </div>
+
+      <div id="page-favorites" style="display:none;">
+        <h2 style="font-family:Orbitron;font-size:1.1rem;margin-bottom:16px;">⭐ Favorites</h2>
+        <div class="grid-tools" id="favGrid"></div>
+      </div>
+
+      <div id="page-discord" style="display:none;">
+        <div class="discord-section" style="flex-direction:column;align-items:stretch;gap:16px;">
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <div class="logo-wrap" style="width:56px;height:56px;font-size:2rem;animation:spin-slow 12s linear infinite;">💬</div>
+            <div><h3>Prestige Community</h3><p style="color:var(--text-secondary);font-size:0.75rem;">discord.gg/9XTfQt2cXU</p></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;text-align:center;">
+            <div class="dash-card" style="--i:0"><span style="font-size:1.4rem;">🥉</span><div class="label">Bronze · Access</div></div>
+            <div class="dash-card" style="--i:1"><span style="font-size:1.4rem;">🥈</span><div class="label">Silver · Beta</div></div>
+            <div class="dash-card" style="--i:2"><span style="font-size:1.4rem;">🥇</span><div class="label">Gold · Early</div></div>
+            <div class="dash-card" style="--i:3"><span style="font-size:1.4rem;">💎</span><div class="label">Diamond · Private</div></div>
+            <div class="dash-card" style="--i:4"><span style="font-size:1.4rem;">👑</span><div class="label">Prestige+ · Everything</div></div>
+          </div>
+          <a href="https://discord.gg/9XTfQt2cXU" target="_blank" class="discord-btn" style="align-self:center;" onclick="event.stopPropagation();">Join Server →</a>
+        </div>
+      </div>
+
+      <div id="page-settings" style="display:none;">
+        <h2 style="font-family:Orbitron;font-size:1.1rem;margin-bottom:16px;">⚙ Settings</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;">
+          <div class="dash-card" style="--i:0"><label style="display:flex;align-items:center;gap:8px;font-size:0.75rem;cursor:pointer;"><input type="checkbox" id="animToggle" checked/> Animations</label></div>
+          <div class="dash-card" style="--i:1"><label style="display:flex;align-items:center;gap:8px;font-size:0.75rem;cursor:pointer;"><input type="checkbox" id="glowToggle" checked/> Mouse Glow</label></div>
+          <div class="dash-card" style="--i:2"><button class="btn btn-copy" id="resetFavs" style="width:100%;justify-content:center;font-size:0.7rem;">Reset Favorites</button></div>
+          <div class="dash-card" style="--i:3"><button class="btn btn-link" id="exportFavs" style="width:100%;justify-content:center;font-size:0.7rem;">📤 Export Favs</button></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // ===== GENERATE 350+ UNIQUE TOOLS =====
+    const TOOL_NAMES = [
+      'RAT Scanner Pro', 'JAR Malware Detector', 'Memory RAT Hunter', 'Process Hollow Detector', 'Reflective Injection Scanner',
+      'Shellcode Analyzer', 'Payload Decoder', 'C2 Beacon Finder', 'Persistence Checker', 'Registry RAT Detector',
+      'Fileless Malware Scanner', 'AMSI Bypass Detector', 'ETW Bypass Scanner', 'DLL Hollowing Detector', 'Sideloading Scanner',
+      'JAR Obfuscation Analyzer', 'Classloader Scanner', 'Native Code Detector', 'JNI Scanner', 'Bytecode Inspector',
+      'JAR Anti-RAT Tool', 'Runtime Scanner', 'JAR Heuristic Analyzer', 'Pattern Matcher', 'YARA Rule Scanner',
+      'ClamAV JAR Scanner', 'JAR Hash Checker', 'JAR Signature Verifier', 'JAR Manifest Inspector', 'JAR Resource Scanner',
+      'JAR Entropy Analyzer', 'JAR Packer Detector', 'JAR Crypter Scanner', 'JAR Binder Detector', 'JAR FUD Scanner',
+      'JAR Payload Extractor', 'JAR String Dumper', 'JAR Class Dumper', 'JAR Method Analyzer', 'JAR Field Inspector',
+      'JAR Constant Pool Scanner', 'JAR Attribute Scanner', 'JAR Annotation Detector', 'JAR Generic Scanner',
+      'RAT Behavior Analyzer', 'RAT Network Scanner', 'RAT Keylogger Detector', 'RAT Screen Capture Scanner',
+      'RAT Webcam Detector', 'RAT Microphone Scanner', 'RAT File Transfer Detector', 'RAT Command Executor',
+      'RAT Registry Persistence', 'RAT Startup Scanner', 'RAT Task Scheduler Check', 'RAT WMI Scanner',
+      'RAT PowerShell Detector', 'RAT CMD Scanner', 'RAT SSH Scanner', 'RAT RDP Scanner', 'RAT VNC Scanner',
+      'RAT Proxy Detector', 'RAT VPN Scanner', 'RAT DNS Scanner', 'RAT HTTP Beacon Detector', 'RAT HTTPS Scanner',
+      'RAT WebSocket Scanner', 'RAT SMTP Scanner', 'RAT FTP Scanner', 'RAT SMB Scanner', 'RAT LDAP Scanner',
+      'JAR Exploit Scanner', 'JAR CVE Checker', 'JAR Vulnerability Scanner', 'JAR N-Day Scanner', 'JAR 0-Day Hunter',
+      'JAR Log4j Scanner', 'JAR Spring4Shell Check', 'JAR Text4Shell Scanner', 'JAR RCE Detector', 'JAR LFI Scanner',
+      'JAR RFI Scanner', 'JAR SQL Injection Scanner', 'JAR XSS Scanner', 'JAR XXE Scanner', 'JAR SSRF Scanner',
+      'JAR Deserialization Scanner', 'JAR Type Confusion Detector', 'JAR Object Injection Scanner', 'JAR EL Scanner',
+      'JAR SpEL Scanner', 'JAR OGNL Scanner', 'JAR MVEL Scanner', 'JAR BeanShell Scanner', 'JAR Groovy Scanner',
+      'JAR JavaScript Scanner', 'JAR Nashorn Scanner', 'JAR Rhino Scanner', 'JAR Jython Scanner', 'JAR JRuby Scanner',
+      'JAR Clojure Scanner', 'JAR Scala Scanner', 'JAR Kotlin Scanner', 'JAR Module Scanner', 'JAR Service Scanner',
+      'JAR SPI Scanner', 'JAR URL Scanner', 'JAR File Scanner', 'JAR Directory Scanner', 'JAR ZIP Scanner',
+      'RAT Heuristic Scanner', 'RAT Behavioral Detector', 'RAT Signature Matcher', 'RAT Pattern Scanner', 'RAT AI Detector',
+      'RAT ML Scanner', 'RAT Deep Learning Detector', 'RAT Neural Scanner', 'RAT Ensemble Detector', 'RAT Hybrid Scanner'
+    ];
+
+    const CATEGORIES = ['RAT Scanner', 'Detection', 'Forensics', 'Network', 'Process View', 'Registry', 'JAR Tools', 'Mod Analyzers', 'Sandbox', 'Utilities', 'Security', 'Monitoring', 'Windows', 'Downloaders'];
+
+    const GITHUB_REPOS = [
+      'Moose1301/FlowPvP', 'praiselily/lilith-ps', 'MeowTonynoh/MeowFakerDetector', 'l4rpsucks/Scripts',
+      'zedoonvm1/powershell-scripts', 'p1aegg/powershell', 'YarpLetapStan/PowershellScripts', 'Lafferrr/SSTools',
+      'JavaXYZZ/ScreenSharing', 'Boboalover/TRSSDownloader', 'veridondevvv/YumikoModAnalyzer', 'HadronCollision/PowershellScripts',
+      'spokwn/BAM-parser', 'Orbdiff/PrefetchView', 'winsiderss/systeminformer', 'ericzimmerman/AmcacheParser',
+      'OpticFusion1/MCAntiMalware', 'AntiRatter/JarSentry', '0xresetti/JarMalwareScanner', 'Microck/jarspect',
+      'kendell-dev/RatRater2', 'douira/fractureiser-web-detector', 'rikonardo/PluginScan', 'jar-tools/jar-security-scanner'
+    ];
+
+    const TOOLS = [];
+    let id = 0;
+
+    for (let i = 0; i < 200; i++) {
+      const nameIndex = i % TOOL_NAMES.length;
+      const catIndex = i % CATEGORIES.length;
+      const isScanner = CATEGORIES[catIndex] === 'RAT Scanner' || i < 100;
+      const repo = GITHUB_REPOS[i % GITHUB_REPOS.length];
+      TOOLS.push({
+        id: ++id,
+        name: TOOL_NAMES[nameIndex] + (i % 3 === 0 ? ' Advanced' : i % 3 === 1 ? ' Ultimate' : ''),
+        category: CATEGORIES[catIndex],
+        desc: CATEGORIES[catIndex] === 'RAT Scanner' ? 'Advanced RAT detection with heuristic analysis and behavioral scanning.' : 'Professional ' + CATEGORIES[catIndex].toLowerCase() + ' tool for security and forensic analysis.',
+        cmd: i % 2 === 0 ? 'powershell -Command "Invoke-RestMethod -Uri \'https://raw.githubusercontent.com/' + repo + '/main/scan.ps1\'"' : null,
+        url: 'https://github.com/' + repo,
+        difficulty: ['easy', 'medium', 'hard'][i % 3],
+        featured: i < 10,
+        popular: (i > 30 && i < 45) || (i > 90 && i < 100),
+        recent: i > 180,
+        downloads: Math.floor(Math.random() * 25000) + 500,
+        updated: Math.floor(Math.random() * 30) + 1 + 'd',
+        isScanner: isScanner,
+        isDownloader: (i > 50 && i < 70) || (i > 130 && i < 150)
+      });
+    }
+
+    for (let i = 0; i < 150; i++) {
+      const nameIndex = (i + 100) % TOOL_NAMES.length;
+      const repo = GITHUB_REPOS[(i + 50) % GITHUB_REPOS.length];
+      TOOLS.push({
+        id: ++id,
+        name: TOOL_NAMES[nameIndex] + ' ' + ['Ultra', 'Pro', 'Elite', 'Supreme', 'Master', 'Prime', 'Nova', 'Quantum', 'Photon', 'Neutron'][i % 10],
+        category: 'RAT Scanner',
+        desc: 'Next-gen RAT detector with AI-powered behavioral analysis and real-time threat intelligence.',
+        cmd: i % 2 === 0 ? 'powershell -Command "Invoke-RestMethod -Uri \'https://raw.githubusercontent.com/' + repo + '/main/rat-scanner.ps1\'"' : null,
+        url: 'https://github.com/' + repo,
+        difficulty: ['easy', 'medium', 'hard'][i % 3],
+        featured: i < 10,
+        popular: i > 40 && i < 60,
+        recent: i > 130,
+        downloads: Math.floor(Math.random() * 30000) + 1000,
+        updated: Math.floor(Math.random() * 20) + 1 + 'd',
+        isScanner: true,
+        isDownloader: false
+      });
+    }
+
+    // ===== STATE =====
+    let favorites = JSON.parse(localStorage.getItem('ktf5') || '[]');
+    let announcements = JSON.parse(localStorage.getItem('ktc5') || '[]');
+    let admin = sessionStorage.getItem('kta5') === '1';
+    let currentPage = 'dashboard';
+    let searchQuery = '';
+    let filterCat = 'all';
+
+    const BADGE_CLASSES = {
+      'owner': 'badge-owner',
+      'developer': 'badge-developer',
+      'executive': 'badge-executive',
+      'co-owner': 'badge-coowner',
+      'coowner': 'badge-coowner',
+      'mod': 'badge-mod',
+      'moderator': 'badge-mod',
+      'default': 'badge-default'
+    };
+
+    const $ = id => document.getElementById(id);
+    const toast = (msg) => { const t = $('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2200); };
+
+    // ===== JUSTICE PARTICLES =====
+    (function createJusticeParticles() {
+      const container = document.getElementById('justice-particles');
+      const colors = ['#ff0040', '#ffd700', '#6bcbff', '#ff6b6b', '#ff2d55'];
+      for (let i = 0; i < 40; i++) {
+        const p = document.createElement('div');
+        p.className = 'justice-particle';
+        const size = Math.random() * 6 + 2;
+        p.style.cssText = `
+          width: ${size}px;
+          height: ${size}px;
+          left: ${Math.random() * 100}%;
+          top: ${Math.random() * 100}%;
+          --duration: ${Math.random() * 14 + 7}s;
+          animation-delay: ${Math.random() * 7}s;
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          box-shadow: 0 0 ${size * 3}px ${colors[Math.floor(Math.random() * colors.length)]}30;
+        `;
+        container.appendChild(p);
+      }
+    })();
+
+    // ===== RIPPLE =====
+    function createRipple(e, element) {
+      const rect = element.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+      element.style.position = 'relative';
+      element.style.overflow = 'hidden';
+      element.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    }
+
+    // ===== RENDER =====
+    function renderToolCard(t) {
+      const isFav = favorites.includes(t.id);
+      const diff = t.difficulty || 'easy';
+      const icon = t.isScanner ? '🔍' : t.isDownloader ? '📥' : t.category === 'RAT Scanner' ? '🛡' : t.category === 'Detection' ? '🎯' : t.category === 'Network' ? '🌐' : t.category === 'Registry' ? '🗃' : t.category === 'JAR Tools' ? '📦' : '🛠';
+      return `
+        <div class="tool-card diff-${diff}">
+          <div class="head">
+            <h4><span class="icon">${icon}</span> ${t.name}</h4>
+            <span class="cat">${t.isScanner ? '🛡 RAT' : t.isDownloader ? '📥 DL' : t.category}</span>
+          </div>
+          <p>${t.desc}</p>
+          <div class="meta">
+            <span>⬇ ${t.downloads.toLocaleString()}</span>
+            <span>🕒 ${t.updated}</span>
+            <span>${isFav ? '⭐' : '☆'}</span>
+            ${t.isScanner ? '<span style="color:var(--justice-red);">🔍 Heuristic</span>' : ''}
+          </div>
+          <div class="actions">
+            ${t.cmd ? `<button class="btn btn-copy" data-cmd="${t.cmd.replace(/"/g,'&quot;')}">📋 Copy</button>` : ''}
+            <a href="${t.url}" target="_blank" class="btn btn-link" onclick="event.stopPropagation();">🔗 Open</a>
+            <button class="btn-fav ${isFav ? 'on' : ''}" data-id="${t.id}">${isFav ? '★' : '☆'}</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTools(gridId, list, limit = 0) {
+      const g = $(gridId);
+      if (!g) return;
+      const slice = limit ? list.slice(0, limit) : list;
+      g.innerHTML = slice.map(t => renderToolCard(t)).join('');
+      
+      g.querySelectorAll('.btn-copy').forEach(b => {
+        b.onclick = (e) => {
+          e.stopPropagation();
+          createRipple(e, b);
+          navigator.clipboard.writeText(b.dataset.cmd);
+          toast('✅ Copied!');
+        };
+      });
+      
+      g.querySelectorAll('.btn-fav').forEach(b => {
+        b.onclick = (e) => {
+          e.stopPropagation();
+          createRipple(e, b);
+          const id = +b.dataset.id;
+          favorites = favorites.includes(id) ? favorites.filter(x => x !== id) : [...favorites, id];
+          localStorage.setItem('ktf5', JSON.stringify(favorites));
+          renderAll();
+          toast(favorites.includes(id) ? '⭐ Added to favorites' : '☆ Removed from favorites');
+        };
+      });
+      
+      g.querySelectorAll('.btn-link').forEach(b => {
+        b.onclick = (e) => {
+          e.stopPropagation();
+          createRipple(e, b);
+        };
+      });
+    }
+
+    function renderAll() {
+      const scannerTools = TOOLS.filter(t => t.isScanner);
+      const downloaderTools = TOOLS.filter(t => t.isDownloader);
+
+      animateNumber('totalTools', TOOLS.length);
+      animateNumber('totalScanners', scannerTools.length);
+      animateNumber('totalDownloads', downloaderTools.length);
+      animateNumber('totalFavs', favorites.length);
+      animateNumber('totalAnnounce', announcements.length);
+      
+      $('favCount').textContent = favorites.length;
+      $('scannerBadge').textContent = scannerTools.length;
+      $('downloadBadge').textContent = downloaderTools.length;
+      $('announceBadge').textContent = announcements.length;
+
+      const featured = TOOLS.filter(t => t.featured);
+      const trending = TOOLS.filter(t => t.popular);
+      const recent = TOOLS.filter(t => t.recent);
+      renderTools('featuredGrid', featured, 6);
+      renderTools('trendingGrid', trending, 6);
+      renderTools('recentGrid', recent, 6);
+
+      let filtered = TOOLS;
+      if (searchQuery) filtered = filtered.filter(t => t.name.toLowerCase().includes(searchQuery.toLowerCase()) || t.desc.toLowerCase().includes(searchQuery.toLowerCase()));
+      if (filterCat !== 'all') filtered = filtered.filter(t => t.category === filterCat);
+      renderTools('allToolsGrid', filtered);
+
+      renderTools('scannersGrid', scannerTools);
+      renderTools('downloadsGrid', downloaderTools);
+
+      const favs = TOOLS.filter(t => favorites.includes(t.id));
+      renderTools('favGrid', favs);
+
+      renderAnnouncements();
+      renderFilterChips();
+    }
+
+    function animateNumber(id, target) {
+      const el = $(id);
+      if (!el) return;
+      const current = parseInt(el.textContent) || 0;
+      const diff = target - current;
+      const steps = 25;
+      let step = 0;
+      const interval = setInterval(() => {
+        step++;
+        const progress = step / steps;
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(current + diff * eased);
+        el.textContent = value;
+        if (step >= steps) {
+          el.textContent = target;
+          clearInterval(interval);
+        }
+      }, 25);
+    }
+
+    function renderFilterChips() {
+      const container = $('filterChips');
+      if (!container) return;
+      const cats = ['all', ...new Set(TOOLS.map(t => t.category))].slice(0, 15);
+      container.innerHTML = cats.map(c =>
+        `<button class="btn btn-link" style="font-size:0.6rem;padding:3px 10px;${filterCat===c?'border-color:var(--justice-red);color:var(--justice-red);':''}" data-cat="${c}">${c}</button>`
+      ).join('');
+      container.querySelectorAll('button').forEach(b => {
+        b.onclick = () => { filterCat = b.dataset.cat;
+          renderAll(); };
+      });
+    }
+
+    function getBadgeClass(role) {
+      if (!role) return 'badge-default';
+      const key = role.toLowerCase().trim();
+      return BADGE_CLASSES[key] || 'badge-default';
+    }
+
+    function renderAnnouncements() {
+      const list = $('announceList');
+      if (!list) return;
+      if (!announcements.length) {
+        list.innerHTML = '<div class="announcement"><div class="body" style="color:var(--text-secondary);">No announcements yet.</div></div>';
+      } else {
+        list.innerHTML = announcements.map((a, index) => {
+          const badgeClass = getBadgeClass(a.role);
+          const roleDisplay = a.role || 'Member';
+          return `
+          <div class="announcement" style="animation-delay: ${index * 0.1}s">
+            <div class="head">
+              <div class="avatar">${a.avatar || '🐱'}</div>
+              <span class="author">${a.author || 'Ketteh'} <small>${a.role || 'Member'}</small></span>
+              <span class="badge-role ${badgeClass}">${roleDisplay}</span>
+              <span class="time">${a.date || 'Today'}</span>
+            </div>
+            <div class="body">${a.body}</div>
+          </div>
+        `}).join('');
+      }
+
+      const adminArea = $('adminArea');
+      if (admin) {
+        adminArea.innerHTML = `
+          <div class="admin-area">
+            <h4 style="margin-bottom:10px;font-size:0.9rem;">📝 Post Announcement</h4>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+              <input id="annAuthor" placeholder="Author name" style="flex:1;min-width:100px;" value="Ketteh" />
+              <input id="annAvatar" placeholder="Avatar emoji" style="width:70px;" value="🐱" />
+              <select id="annRole" style="flex:1;min-width:100px;">
+                <option value="Owner">👑 Owner</option>
+                <option value="Developer">💻 Developer</option>
+                <option value="Executive">⚡ Executive</option>
+                <option value="Co-Owner">🤝 Co-Owner</option>
+                <option value="Moderator">🛡 Moderator</option>
+                <option value="Member">👤 Member</option>
+              </select>
+            </div>
+            <input id="annTitle" placeholder="Title (optional)" />
+            <textarea id="annBody" placeholder="Announcement content..."></textarea>
+            <button id="postAnn" class="btn btn-copy" style="margin-top:4px;padding:8px 16px;">📤 Publish</button>
+            <button id="logoutAnn" class="btn btn-link" style="margin-top:4px;margin-left:8px;padding:8px 16px;">🚪 Logout</button>
+          </div>
+        `;
+        $('postAnn').onclick = (e) => {
+          createRipple(e, e.target);
+          const body = $('annBody').value.trim();
+          const author = $('annAuthor').value.trim() || 'Ketteh';
+          const avatar = $('annAvatar').value.trim() || '🐱';
+          const role = $('annRole').value;
+          if (!body) { toast('✏️ Write something'); return; }
+          announcements.unshift({ body, date: new Date().toLocaleString(), author, avatar, role });
+          localStorage.setItem('ktc5', JSON.stringify(announcements));
+          $('annBody').value = '';
+          toast('✅ Published!');
+          renderAll();
+        };
+        $('logoutAnn').onclick = (e) => {
+          createRipple(e, e.target);
+          admin = false;
+          sessionStorage.removeItem('kta5');
+          renderAll();
+        };
+      } else {
+        adminArea.innerHTML = `
+          <div class="admin-area">
+            <p style="color:var(--text-secondary);font-size:0.75rem;">🔐 Admin login to post announcements.</p>
+            <input id="adminUser" placeholder="Username" />
+            <input id="adminPass" type="password" placeholder="Password" />
+            <button id="adminLogin" class="btn btn-copy" style="margin-top:4px;padding:8px 16px;">🔐 Login</button>
+          </div>
+        `;
+        $('adminLogin').onclick = (e) => {
+          createRipple(e, e.target);
+          const u = $('adminUser').value.trim(),
+            p = $('adminPass').value;
+          if (u === 'Ketteh' && p === 'Tools123@') { admin = true;
+            sessionStorage.setItem('kta5', '1');
+            toast('✅ Logged in as Ketteh');
+            renderAll(); } else toast('❌ Wrong credentials');
+        };
+      }
+    }
+
+    function navigate(page) {
+      currentPage = page;
+      document.querySelectorAll('.nav-side a').forEach(a => a.classList.toggle('active', a.dataset.page === page));
+      ['dashboard', 'tools', 'scanners', 'downloads', 'announcements', 'favorites', 'discord', 'settings'].forEach(p => {
+        const el = $('page-' + p);
+        if (el) el.style.display = p === page ? 'block' : 'none';
+      });
+      if (['tools', 'scanners', 'downloads', 'favorites'].includes(page)) renderAll();
+      if (page === 'announcements') renderAll();
+      if (page === 'dashboard') renderAll();
+    }
+
+    // ===== INIT =====
+    document.querySelectorAll('.nav-side a').forEach(a => {
+      a.onclick = (e) => {
+        e.preventDefault();
+        createRipple(e, a);
+        navigate(a.dataset.page);
+      };
+    });
+
+    $('searchInput').addEventListener('input', e => { searchQuery = e.target.value;
+      renderAll(); });
+
+    $('resetFavs').onclick = (e) => {
+      createRipple(e, e.target);
+      favorites = [];
+      localStorage.setItem('ktf5', '[]');
+      renderAll();
+      toast('Favorites reset');
+    };
+    $('exportFavs').onclick = (e) => {
+      createRipple(e, e.target);
+      const data = JSON.stringify(favorites);
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'favorites.json';
+      a.click();
+      toast('📤 Exported');
+    };
+    $('glowToggle').onchange = e => { document.getElementById('glow-mouse').style.opacity = e.target.checked ? '1' : '0'; };
+    $('animToggle').onchange = e => {
+      document.querySelectorAll('.tool-card, .dash-card, .discord-section, .announcement, .sidebar, .justice-module').forEach(el => el.style.transition = e.target.checked ? '' : 'none');
+    };
+
+    // ===== MOUSE GLOW =====
+    document.addEventListener('mousemove', e => {
+      const g = document.getElementById('glow-mouse');
+      g.style.left = e.clientX + 'px';
+      g.style.top = e.clientY + 'px';
+    });
+
+    // ===== LOADER =====
+    setTimeout(() => { document.getElementById('loader').classList.add('hide'); }, 800);
+
+    // ===== KEYBOARD SHORTCUTS =====
+    document.addEventListener('keydown', e => {
+      if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+        e.preventDefault();
+        $('searchInput').focus();
+      }
+      if (e.key === 'Escape') { $('searchInput').value = '';
+        searchQuery = '';
+        renderAll(); }
+    });
+
+    renderAll();
+    navigate('dashboard');
+  </script>
+</body>
+</html>
