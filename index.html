@@ -473,6 +473,189 @@ body,body *{cursor:none!important}
 }
 .pwd-box input:focus{border-color:var(--a);box-shadow:0 0 0 3px color-mix(in srgb,var(--a) 12%,transparent)}
 
+
+.copyright-bar{
+  position:relative;z-index:2;
+  border-top:1px solid var(--bd);
+  background:rgba(8,8,18,.9);backdrop-filter:blur(16px);
+  padding:14px 20px;text-align:center;
+  font-size:.72rem;color:var(--m);line-height:1.6;
+}
+.copyright-bar strong{color:var(--t2)}
+.copyright-bar a,.copyright-bar button.linkish{
+  background:none;border:none;color:var(--a);cursor:pointer;
+  font-family:var(--f);font-size:.72rem;font-weight:600;text-decoration:underline;
+  padding:0;
+}
+.copyright-bar a:hover,.copyright-bar button.linkish:hover{color:var(--a2)}
+.legal-box h3{font-family:var(--d);font-size:1rem;color:var(--a);margin-bottom:12px}
+.legal-box p{font-size:.86rem;color:var(--t2);line-height:1.65;margin-bottom:12px}
+.legal-box ul{margin:0 0 14px 18px;color:var(--t2);font-size:.84rem;line-height:1.7}
+.legal-box li{margin-bottom:4px}
+.legal-warn{
+  background:color-mix(in srgb,var(--err) 10%,var(--c));
+  border:1px solid color-mix(in srgb,var(--err) 35%,transparent);
+  border-radius:12px;padding:14px;margin:14px 0;
+  font-size:.84rem;color:var(--t);line-height:1.55;
+}
+.legal-warn strong{color:var(--err)}
+
+
+.profile-chip{
+  display:flex;align-items:center;gap:10px;padding:10px 12px;margin:8px 10px;
+  background:var(--c);border:1px solid var(--bd);border-radius:14px;cursor:pointer;
+  transition:all .2s;
+}
+.profile-chip:hover{border-color:color-mix(in srgb,var(--a) 40%,transparent);box-shadow:0 0 18px color-mix(in srgb,var(--a) 12%,transparent);transform:translateY(-1px)}
+.profile-av{
+  width:36px;height:36px;border-radius:10px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--a),var(--a2));
+  display:grid;place-items:center;font-family:var(--d);font-weight:800;font-size:.85rem;color:#000;
+}
+.profile-av.owner{background:linear-gradient(135deg,var(--a2),var(--a3));color:#fff;box-shadow:0 0 14px color-mix(in srgb,var(--a2) 40%,transparent)}
+.profile-meta{min-width:0;flex:1}
+.profile-name{font-weight:700;font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.profile-role{font-size:.65rem;color:var(--m);margin-top:1px}
+.profile-panel .pbs{margin-top:8px}
+.badge-shop{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.badge-shop .give-badge{
+  padding:8px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--c);
+  cursor:pointer;font-size:.75rem;font-weight:700;transition:all .15s;font-family:var(--f);color:var(--t);
+}
+.badge-shop .give-badge:hover{border-color:var(--a);color:var(--a);transform:translateY(-1px)}
+.badge-shop .give-badge.on{background:color-mix(in srgb,var(--a) 15%,transparent);border-color:var(--a);color:var(--a)}
+.user-row{
+  display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;
+  background:var(--c);border:1px solid var(--bd);margin-bottom:8px;
+}
+.user-row .name{font-weight:700;flex:1}
+.scan-steps{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.scan-step{
+  font-size:.68rem;font-family:var(--mo);padding:4px 8px;border-radius:6px;
+  background:var(--e);border:1px solid var(--bd);color:var(--m);
+}
+.scan-step.run{color:var(--a);border-color:color-mix(in srgb,var(--a) 35%,transparent)}
+.scan-step.done{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 35%,transparent)}
+.scan-step.fail{color:var(--err);border-color:color-mix(in srgb,var(--err) 35%,transparent)}
+.verdict{
+  margin-top:12px;padding:14px;border-radius:12px;border:1px solid var(--bd);
+  display:none;font-weight:700;text-align:center;
+}
+.verdict.show{display:block;animation:rise .3s ease}
+.verdict.clean{background:color-mix(in srgb,var(--ok) 12%,var(--c));border-color:color-mix(in srgb,var(--ok) 35%,transparent);color:var(--ok)}
+.verdict.bad{background:color-mix(in srgb,var(--err) 12%,var(--c));border-color:color-mix(in srgb,var(--err) 35%,transparent);color:var(--err)}
+.verdict.warn{background:color-mix(in srgb,var(--w) 12%,var(--c));border-color:color-mix(in srgb,var(--w) 35%,transparent);color:var(--w)}
+
+
+/* Status bar */
+.status-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:60;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:6px 16px;font-size:.68rem;font-family:var(--mo);
+  background:rgba(6,6,14,.92);backdrop-filter:blur(12px);
+  border-top:1px solid var(--bd);color:var(--m);
+}
+.status-bar .dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:5px}
+.status-bar .dot.on{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.status-bar .dot.off{background:var(--err);box-shadow:0 0 8px var(--err)}
+.status-bar .sep{opacity:.35}
+.status-bar button{
+  background:none;border:none;color:var(--a);font-family:var(--mo);font-size:.68rem;
+  cursor:pointer;padding:0;
+}
+.status-bar button:hover{color:var(--a2)}
+.app{padding-bottom:28px}
+
+/* Spotlight / command palette */
+.spot-ov{
+  position:fixed;inset:0;z-index:2500;background:rgba(0,0,0,.7);backdrop-filter:blur(14px);
+  display:none;align-items:flex-start;justify-content:center;padding-top:12vh;
+}
+.spot-ov.open{display:flex;animation:fadeIn .18s ease}
+.spot{
+  width:min(560px,94vw);background:var(--s);border:1px solid var(--bd);border-radius:18px;
+  overflow:hidden;box-shadow:0 28px 90px rgba(0,0,0,.55),0 0 40px color-mix(in srgb,var(--a) 10%,transparent);
+  animation:slideUp .28s cubic-bezier(.22,1,.36,1);
+}
+.spot input{
+  width:100%;padding:16px 18px;border:none;border-bottom:1px solid var(--bd);
+  background:transparent;color:var(--t);font-size:1rem;font-family:var(--f);outline:none;
+}
+.spot-list{max-height:340px;overflow-y:auto;padding:8px}
+.spot-item{
+  display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:11px;
+  cursor:pointer;font-size:.88rem;transition:background .12s;
+}
+.spot-item:hover,.spot-item.sel{background:color-mix(in srgb,var(--a) 14%,transparent)}
+.spot-item .meta{margin-left:auto;font-size:.68rem;color:var(--m);font-family:var(--mo)}
+
+/* Welcome */
+.welcome-ov{
+  position:fixed;inset:0;z-index:2400;background:rgba(0,0,0,.82);backdrop-filter:blur(18px);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.welcome-ov.open{display:flex;animation:fadeIn .25s ease}
+.welcome{
+  width:min(440px,94vw);text-align:center;padding:32px 28px;
+  background:var(--s);border:1px solid var(--bd);border-radius:22px;
+  box-shadow:0 30px 100px rgba(0,0,0,.5),0 0 60px color-mix(in srgb,var(--a) 12%,transparent);
+}
+.welcome h2{font-family:var(--d);font-size:1.4rem;margin:12px 0 8px}
+.welcome h2 span{background:linear-gradient(90deg,var(--a),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.welcome p{color:var(--t2);font-size:.9rem;line-height:1.55;margin-bottom:18px}
+.welcome .feat{text-align:left;font-size:.82rem;color:var(--t2);margin:0 0 16px;line-height:1.7}
+
+/* Tool of day */
+.totd{
+  background:linear-gradient(135deg,color-mix(in srgb,var(--a) 12%,var(--c)),color-mix(in srgb,var(--a2) 8%,var(--c)));
+  border:1px solid color-mix(in srgb,var(--a) 28%,transparent);
+  border-radius:var(--r);padding:14px 16px;margin-bottom:16px;
+  display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .25s;
+}
+.totd:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.3),0 0 24px color-mix(in srgb,var(--a) 15%,transparent)}
+.totd-ico{font-size:1.6rem}
+.totd-label{font-size:.62rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--a);font-weight:700}
+.totd-name{font-family:var(--d);font-size:.95rem;font-weight:700}
+.totd-go{margin-left:auto;color:var(--a);font-weight:700;font-size:.8rem}
+
+/* Recent tools */
+.recent-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.recent-chip{
+  padding:6px 12px;border-radius:999px;border:1px solid var(--bd);background:var(--c);
+  font-size:.74rem;font-weight:600;cursor:pointer;color:var(--t2);transition:all .15s;
+}
+.recent-chip:hover{color:var(--a);border-color:color-mix(in srgb,var(--a) 35%,transparent)}
+
+/* Copy report */
+.copy-report{margin-top:8px;display:none}
+.copy-report.show{display:block}
+
+/* Notif bell */
+.notif-wrap{position:relative}
+.notif-btn{
+  width:38px;height:38px;border-radius:11px;border:1px solid var(--bd);background:var(--c);
+  color:var(--t2);cursor:pointer;display:grid;place-items:center;font-size:1rem;transition:all .2s;
+}
+.notif-btn:hover{color:var(--a);border-color:var(--a)}
+.notif-badge{
+  position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;padding:0 4px;
+  border-radius:8px;background:var(--a2);color:#fff;font-size:.6rem;font-weight:800;
+  display:none;align-items:center;justify-content:center;font-family:var(--mo);
+}
+.notif-badge.show{display:flex}
+.notif-panel{
+  position:absolute;right:0;top:44px;width:280px;max-height:320px;overflow-y:auto;
+  background:var(--s);border:1px solid var(--bd);border-radius:14px;padding:8px;
+  box-shadow:0 16px 48px rgba(0,0,0,.45);display:none;z-index:80;
+}
+.notif-panel.open{display:block;animation:rise .2s ease}
+.notif-item{padding:8px 10px;border-radius:10px;font-size:.78rem;color:var(--t2);border-bottom:1px solid rgba(255,255,255,.04)}
+.notif-item:hover{background:rgba(255,255,255,.03)}
+
+/* Animated counter pulse */
+.stat b.pulse{animation:pulse 0.4s ease}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+
 </style>
 </head>
 <body>
@@ -511,8 +694,18 @@ body,body *{cursor:none!important}
     <div class="xp-top"><span class="xp-lvl" id="xpLvl">LVL 1</span><span id="xpTxt">0 / 100 XP</span></div>
     <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
   </div>
+  <div class="profile-chip" id="profileChip" title="Open profile">
+    <div class="profile-av" id="profileAv">U</div>
+    <div class="profile-meta">
+      <div class="profile-name" id="profileName">Guest</div>
+      <div class="profile-role" id="profileRole">No badges yet</div>
+    </div>
+  </div>
   <div class="side-foot">
     <button type="button" id="btnSettings">⚙️ Settings</button>
+    <button type="button" id="btnQuickDash">📊 Dashboard</button>
+    <button type="button" id="btnQuickMods">🧩 Modules</button>
+    <button type="button" id="btnProfile">👤 Profile</button>
     <button type="button" class="post-btn hid" id="btnPost">+ New Post</button>
   </div>
 </aside>
@@ -525,13 +718,22 @@ body,body *{cursor:none!important}
     </div>
     <select class="sel" id="catFilter"><option value="">All Categories</option></select>
     <select class="sel" id="sortFilter"><option value="name">A–Z</option><option value="cat">Category</option><option value="fav">Favorites</option><option value="rand">Shuffle</option></select>
+    <div class="notif-wrap">
+      <button type="button" class="notif-btn" id="notifBtn" title="Notifications">🔔</button>
+      <span class="notif-badge" id="notifBadge">0</span>
+      <div class="notif-panel" id="notifPanel"><div class="notif-item">No notifications yet</div></div>
+    </div>
   </div>
 
   <div class="content">
     <div class="page on" id="page-tools">
       <div class="hero">
         <div><h1>Your <em>arsenal</em> awaits</h1><p id="heroSub">Loading…</p></div>
-        <div class="hero-btns"><button type="button" class="btn" id="btnShuffle">🔀 Shuffle</button></div>
+        <div class="hero-btns">
+          <button type="button" class="btn" id="btnShuffle">🔀 Shuffle</button>
+          <button type="button" class="btn" id="btnRefreshTools">🔄 Refresh</button>
+          <button type="button" class="btn btn-p" id="btnRandomTool">🎲 Random Tool</button>
+        </div>
       </div>
       <div class="stats">
         <div class="stat"><label>Tools</label><b id="sTools">0</b></div>
@@ -540,6 +742,15 @@ body,body *{cursor:none!important}
         <div class="stat"><label>Scans</label><b id="sScans">0</b></div>
         <div class="stat"><label>Level</label><b id="sLvl">1</b></div>
       </div>
+      <div class="totd" id="totd" title="Open tool of the day">
+        <div class="totd-ico" id="totdIco">🎯</div>
+        <div>
+          <div class="totd-label">Tool of the day</div>
+          <div class="totd-name" id="totdName">Loading…</div>
+        </div>
+        <div class="totd-go">Run →</div>
+      </div>
+      <div class="recent-row" id="recentRow"></div>
       <div class="activity"><h4>Live activity</h4><div id="actList"><div class="act">System online — ready</div></div></div>
       <div class="chips" id="chips"></div>
       <div class="grid" id="toolGrid"></div>
@@ -574,10 +785,12 @@ body,body *{cursor:none!important}
             <div class="ca"><button type="button" class="btn" id="annCancel">Cancel</button><button type="button" class="btn btn-p" id="annPublish">Publish</button></div>
           </div>
           <div class="sync-bar">
-            <button type="button" class="btn" id="btnExportPosts" title="Share posts with others">📤 Export Posts</button>
-            <button type="button" class="btn" id="btnImportPosts">📥 Import Posts</button>
+            <button type="button" class="btn btn-p" id="btnRefreshFeed">🔄 Refresh Live Feed</button>
+            <button type="button" class="btn" id="btnExportPosts" title="Backup posts">📤 Export</button>
+            <button type="button" class="btn" id="btnImportPosts">📥 Import</button>
             <input type="file" id="importFile" accept="application/json,.json" class="hid">
           </div>
+          <p style="font-size:.72rem;color:var(--m);margin-bottom:12px">Live feed is shared online — everyone sees the same announcements &amp; changelog.</p>
           <div id="annFeed"></div>
         </div>
         <div class="side-card">
@@ -660,6 +873,8 @@ body,body *{cursor:none!important}
               <button type="button" class="btn" id="qaSettings">Settings</button>
               <button type="button" class="btn" id="qaNews">News</button>
               <button type="button" class="btn" id="qaShuffle">Shuffle Tools</button>
+              <button type="button" class="btn" id="qaProfile">👤 Profile</button>
+              <button type="button" class="btn hid" id="qaBadgeConsole" style="background:linear-gradient(135deg,color-mix(in srgb,var(--a2) 25%,var(--e)),var(--e));border-color:color-mix(in srgb,var(--a2) 40%,transparent)">🎖️ Badge Console</button>
             </div>
           </div>
           <div class="activity" style="max-height:220px"><h4>Session log</h4><div id="dashLog"><div class="act">Dashboard ready</div></div></div>
@@ -678,6 +893,8 @@ body,body *{cursor:none!important}
             <h3>Owner vault</h3>
             <p style="font-size:.8rem;color:var(--t2);margin-top:8px;line-height:1.5" id="vaultStatus">Locked — enter password in Settings.</p>
             <button type="button" class="btn btn-p" style="width:100%;margin-top:12px" id="qaOwner">Owner Settings</button>
+            <button type="button" class="btn" style="width:100%;margin-top:8px" id="qaLegal">📜 Legal Notice</button>
+            <button type="button" class="btn" style="width:100%;margin-top:8px" id="qaRefreshCloud">🔄 Sync Live Feed</button>
           </div>
         </div>
       </div>
@@ -755,14 +972,26 @@ body,body *{cursor:none!important}
       <p id="toolDesc" style="color:var(--t2);font-size:.88rem;margin-bottom:8px"></p>
       <div class="drop" id="dropZone">
         <div style="font-size:1.8rem;margin-bottom:6px;opacity:.5">📁</div>
-        <div style="font-weight:700;margin-bottom:3px">Drop JAR / file or click</div>
-        <div style="font-size:.78rem;color:var(--m)">Simulated local scan</div>
+        <div style="font-weight:700;margin-bottom:3px">Drop JAR / EXE / file or click</div>
+        <div style="font-size:.78rem;color:var(--m)">Local malware / RAT heuristic check</div>
         <input type="file" id="fileIn" class="hid">
+      </div>
+      <div class="scan-steps" id="scanSteps">
+        <span class="scan-step" data-step="hash">Hash</span>
+        <span class="scan-step" data-step="sig">Signatures</span>
+        <span class="scan-step" data-step="heur">Heuristics</span>
+        <span class="scan-step" data-step="pe">PE/JAR</span>
+        <span class="scan-step" data-step="net">Net IOC</span>
+        <span class="scan-step" data-step="report">Report</span>
       </div>
       <div class="prog" id="prog"><div class="pf" id="progF"></div></div>
       <div class="log" id="log"></div>
-      <div style="display:flex;gap:8px;margin-top:14px">
-        <button type="button" class="btn btn-p" style="flex:1" id="btnRunScan">Run Scan</button>
+      <div class="verdict" id="scanVerdict"></div>
+      <button type="button" class="btn copy-report" id="btnCopyReport" style="width:100%">📋 Copy Scan Report</button>
+      <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+        <button type="button" class="btn btn-p" style="flex:1" id="btnRunScan">Run Full Scan</button>
+        <button type="button" class="btn" id="btnQuickScan">⚡ Quick</button>
+        <button type="button" class="btn" id="btnDeepScan">🔬 Deep</button>
         <button type="button" class="btn" id="btnFavTool">☆ Fav</button>
         <button type="button" class="btn" id="toolClose2">Close</button>
       </div>
@@ -770,7 +999,167 @@ body,body *{cursor:none!important}
   </div>
 </div>
 
+
+<!-- Profile Modal -->
+<div class="ov" id="profileOv">
+  <div class="mod" style="max-width:480px">
+    <div class="mh"><h2>Your Profile</h2><button type="button" class="mx" id="profileClose">✕</button></div>
+    <div class="mb profile-panel">
+      <div style="display:flex;gap:14px;align-items:center;margin-bottom:16px">
+        <div class="profile-av" id="profileAvBig" style="width:56px;height:56px;font-size:1.2rem;border-radius:14px">U</div>
+        <div>
+          <div class="profile-name" id="profileNameBig" style="font-size:1.1rem">Guest</div>
+          <div class="profile-role" id="profileRoleBig">Member</div>
+        </div>
+      </div>
+      <div class="fg"><label>Display name</label><input id="profileUserInput" placeholder="Choose a username" maxlength="20"></div>
+      <div class="fg"><label>Bio</label><textarea id="profileBioInput" rows="2" placeholder="Optional bio" maxlength="120"></textarea></div>
+      <p style="font-size:.72rem;color:var(--m);margin-bottom:10px">Username <strong style="color:var(--a2)">Ketteh</strong> is reserved for the owner.</p>
+      <div style="font-size:.7rem;color:var(--m);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:6px">Your badges</div>
+      <div class="pbs" id="profileBadgeList" style="min-height:28px"></div>
+      <div class="ca" style="margin-top:16px">
+        <button type="button" class="btn" id="profileCancel">Close</button>
+        <button type="button" class="btn btn-p" id="profileSave">Save Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Owner Badge Console -->
+<div class="ov" id="badgeOv">
+  <div class="mod" style="max-width:560px">
+    <div class="mh"><h2>Badge Console · Owner</h2><button type="button" class="mx" id="badgeClose">✕</button></div>
+    <div class="mb">
+      <p style="font-size:.84rem;color:var(--t2);margin-bottom:12px">Grant or revoke roles for any username. They receive badges when their profile name matches.</p>
+      <div class="fg"><label>Target username</label><input id="badgeTarget" placeholder="e.g. PlayerOne" maxlength="20"></div>
+      <div style="font-size:.7rem;color:var(--m);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin:8px 0 6px">Select badges to grant</div>
+      <div class="badge-shop" id="badgeShop"></div>
+      <div class="ca" style="margin-top:14px">
+        <button type="button" class="btn btn-p" id="badgeGrant">Grant Badges</button>
+        <button type="button" class="btn" id="badgeRevoke">Revoke All</button>
+        <button type="button" class="btn" id="badgeRefresh">Refresh List</button>
+      </div>
+      <div style="font-size:.7rem;color:var(--m);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin:18px 0 8px">Granted users</div>
+      <div id="badgeUserList"><div class="empty">No grants yet</div></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="status-bar" id="statusBar">
+  <span><span class="dot on" id="statusDot"></span><span id="statusCloud">Cloud live</span></span>
+  <span class="sep">|</span>
+  <span id="statusUser">Guest</span>
+  <span class="sep">|</span>
+  <span id="statusScans">0 scans</span>
+  <span class="sep">|</span>
+  <span id="statusLvl">LVL 1</span>
+  <span style="margin-left:auto;display:flex;gap:12px;align-items:center">
+    <button type="button" id="statusSync">Sync</button>
+    <button type="button" id="statusPalette">⌘K</button>
+    <button type="button" id="statusLegal">©</button>
+  </span>
+</div>
+
+
+<div class="spot-ov" id="spotOv">
+  <div class="spot">
+    <input id="spotIn" placeholder="Search tools, go to page, run action…" autocomplete="off">
+    <div class="spot-list" id="spotList"></div>
+  </div>
+</div>
+<div class="welcome-ov" id="welcomeOv">
+  <div class="welcome">
+    <div style="font-size:2.4rem">🛡️</div>
+    <h2>Welcome to <span>KettehTools</span></h2>
+    <p>Elite SS arsenal with live scanners, modules, profiles &amp; shared feed.</p>
+    <div class="feat">
+      ✦ 150+ malware / RAT / JAR scanners<br>
+      ✦ Modules, XP, live cloud announcements<br>
+      ✦ Profiles &amp; owner-granted badges<br>
+      ✦ Press <strong style="color:var(--a)">Ctrl+K</strong> anytime for command palette
+    </div>
+    <button type="button" class="btn btn-p" style="width:100%" id="welcomeGo">Enter Arsenal</button>
+  </div>
+</div>
+
 <div class="toasts" id="toasts"></div>
+
+<div class="copyright-bar">
+  <div><strong>© 2026 KettehTools</strong> · All rights reserved · Owned exclusively by <strong>Ketteh</strong></div>
+  <div style="margin-top:4px">
+    Copying, stealing, rebranding, or redistributing this project is prohibited and will be enforced
+    (DMCA, platform reports, removal, and further action as needed).
+  </div>
+  <div style="margin-top:6px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+    <button type="button" class="linkish" id="btnLegal">📜 Full Legal Notice</button>
+    <button type="button" class="linkish" id="btnLegalShort">⚡ Quick Warning</button>
+    <button type="button" class="linkish" id="btnCredit">✦ Credit Ketteh</button>
+  </div>
+</div>
+
+<div class="ov" id="legalOv">
+  <div class="mod" style="max-width:560px">
+    <div class="mh"><h2>Copyright &amp; Legal</h2><button type="button" class="mx" id="legalClose">✕</button></div>
+    <div class="mb legal-box">
+      <h3>© 2026 KettehTools — All Rights Reserved</h3>
+      <p>
+        <strong style="color:var(--t)">KettehTools</strong> is the exclusive intellectual property of
+        <strong style="color:var(--t)">Ketteh</strong>. This includes, without limitation:
+        the name and branding; visual design and layout; user interface and experience;
+        original code and structure; tool names, modules, categories, and arrangements;
+        graphics, animations, themes, and custom cursors; announcements, changelogs, and badges systems;
+        and any derivative works based on the above.
+      </p>
+      <div class="legal-warn">
+        <strong>⚠ UNAUTHORIZED COPYING, THEFT, OR REBRANDING WILL BE ACTED ON.</strong><br><br>
+        If you copy, mirror, fork-without-credit, rebrand, resell, redistribute, or claim KettehTools
+        (or any substantial portion of it) as your own, the owner reserves the right to pursue
+        <em>all available remedies</em>, including but not limited to:
+        <ul style="margin-top:8px">
+          <li><strong>DMCA / copyright takedown notices</strong> against hosts, CDNs, and mirrors</li>
+          <li><strong>Platform reports</strong> (GitHub, Discord, YouTube, TikTok, etc.) for IP theft</li>
+          <li><strong>Forced removal</strong> of stolen copies, reuploads, and rebrands</li>
+          <li><strong>Public credit correction</strong> and community notices naming the violation</li>
+          <li><strong>Blacklisting</strong> from related SS / security communities where appropriate</li>
+          <li><strong>Civil claims</strong> for copyright infringement and unfair competition where the law allows</li>
+          <li><strong>Evidence preservation</strong> (screenshots, archives, hashes, timestamps) for enforcement</li>
+        </ul>
+      </div>
+      <p><strong style="color:var(--t)">Permitted use</strong></p>
+      <ul>
+        <li>Personal use of the official KettehTools interface for legitimate analysis / SS checks</li>
+        <li>Sharing a direct link to the official project with clear credit to <strong>Ketteh</strong></li>
+        <li>Fair-use screenshots or short clips that credit the project and do not redistribute the source</li>
+      </ul>
+      <p><strong style="color:var(--t)">Strictly prohibited</strong></p>
+      <ul>
+        <li>Copying, mirroring, or hosting the site (or substantial parts) without written permission</li>
+        <li>Removing, hiding, or altering copyright notices, credits, or owner badges</li>
+        <li>Rebranding, reselling, or presenting KettehTools as your product or commission work</li>
+        <li>Scraping tools, modules, UI, or content to build a competing or “inspired” clone</li>
+        <li>Claiming ownership of the name <strong>KettehTools</strong>, its design, or its systems</li>
+        <li>Bypassing or stripping license / copyright protections for redistribution</li>
+      </ul>
+      <p><strong style="color:var(--t)">Ownership &amp; enforcement</strong></p>
+      <ul>
+        <li>Owner: <strong>Ketteh</strong> · Project: <strong>KettehTools</strong> · Year: <strong>2026</strong></li>
+        <li>No license is granted to copy or commercialize this work unless Ketteh gives prior written consent</li>
+        <li>Using this site does not transfer any intellectual property rights to you</li>
+        <li>Violations may be documented and enforced at the owner’s sole discretion</li>
+      </ul>
+      <p style="font-size:.78rem;color:var(--m);margin-top:8px">
+        By continuing to use KettehTools you acknowledge this notice. Ignorance of these terms is not a defense.
+        For permission requests, contact the owner <strong>Ketteh</strong> directly.
+      </p>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+        <button type="button" class="btn btn-p" style="flex:1" id="legalOk">I Understand</button>
+        <button type="button" class="btn" style="flex:1" id="legalCopy">📋 Copy Notice</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script>
 (function(){
@@ -799,6 +1188,9 @@ var S = JSON.parse(localStorage.getItem("kt_settings")||"{}");
 
 var chipCat = "", tiltOn = true;
 var OWNER_PASS = "KettehTools123@";
+var CLOUD_URL = "https://jsonblob.com/api/jsonBlob/019fde23-b163-7908-b94a-199efec30614";
+var cloudBusy = false;
+
 var MODULES = [
   {id:"rat-core", name:"RAT Core Engine", icon:"🛡️", desc:"Deep behavioral RAT detection pack with memory heuristics.", tag:"Detection", boost:12},
   {id:"jar-lab", name:"JAR Forensic Lab", icon:"🧬", desc:"Bytecode, obfuscation, packer and crypter analysis suite.", tag:"JAR", boost:15},
@@ -815,6 +1207,30 @@ var MODULES = [
 ];
 var activeMods = new Set(JSON.parse(localStorage.getItem("kt_mods")||"[]"));
 var riskScore = +localStorage.getItem("kt_risk")||18;
+var ALL_BADGES = [
+  {id:"o", cls:"o", label:"OWNER"},
+  {id:"f", cls:"f", label:"FOUNDER"},
+  {id:"v", cls:"v", label:"VERIFIED"},
+  {id:"e", cls:"e", label:"ELITE"},
+  {id:"d", cls:"d", label:"DEV"},
+  {id:"staff", cls:"f", label:"STAFF"},
+  {id:"mod", cls:"v", label:"MOD"},
+  {id:"vip", cls:"e", label:"VIP"},
+  {id:"og", cls:"d", label:"OG"},
+  {id:"helper", cls:"v", label:"HELPER"},
+  {id:"scanner", cls:"d", label:"SCANNER"},
+  {id:"legend", cls:"e", label:"LEGEND"}
+];
+var RESERVED_NAMES = ["ketteh", "kettehtools", "owner", "admin"];
+var myProfile = JSON.parse(localStorage.getItem("kt_profile")||'{"username":"Guest","bio":""}');
+var grantedBadges = {}; // username(lower) -> [badge ids] from cloud
+var recentTools = JSON.parse(localStorage.getItem("kt_recent")||"[]");
+var notifs = [];
+var spotItems = [], spotIdx = 0;
+var lastReport = "";
+var totdId = 0;
+
+
 
 
 function $(id){ return document.getElementById(id); }
@@ -830,11 +1246,115 @@ function theme(a,b,c){
 }
 function act(msg){
   var list = $("actList"); if(!list) return;
+  var time = new Date().toLocaleTimeString();
   var d = document.createElement("div"); d.className = "act";
-  d.innerHTML = "<span>" + new Date().toLocaleTimeString() + "</span> — " + msg;
+  d.innerHTML = "<span>" + time + "</span> — " + msg;
   list.insertBefore(d, list.firstChild);
   while(list.children.length > 10) list.removeChild(list.lastChild);
+  // notifications
+  notifs.unshift({time:time, msg:msg});
+  if(notifs.length > 30) notifs.pop();
+  renderNotifs();
+  // dash log
+  var dl = $("dashLog");
+  if(dl){
+    var e = document.createElement("div"); e.className = "act"; e.innerHTML = d.innerHTML;
+    dl.insertBefore(e, dl.firstChild);
+    while(dl.children.length > 15) dl.removeChild(dl.lastChild);
+  }
 }
+function renderNotifs(){
+  var panel = $("notifPanel"), badge = $("notifBadge");
+  if(!panel) return;
+  if(!notifs.length){ panel.innerHTML = '<div class="notif-item">No notifications yet</div>'; }
+  else {
+    var h = "";
+    for(var i=0;i<Math.min(notifs.length,12);i++){
+      h += '<div class="notif-item"><span style="color:var(--a)">' + notifs[i].time + '</span> — ' + notifs[i].msg + '</div>';
+    }
+    panel.innerHTML = h;
+  }
+  if(badge){
+    badge.textContent = String(Math.min(notifs.length, 9));
+    badge.classList.toggle("show", notifs.length > 0 && !panel.classList.contains("open"));
+  }
+}
+function pushRecent(id){
+  recentTools = recentTools.filter(function(x){ return x !== id; });
+  recentTools.unshift(id);
+  if(recentTools.length > 8) recentTools = recentTools.slice(0,8);
+  localStorage.setItem("kt_recent", JSON.stringify(recentTools));
+  renderRecent();
+}
+function renderRecent(){
+  var row = $("recentRow"); if(!row) return;
+  if(!recentTools.length){ row.innerHTML = ""; return; }
+  var h = "";
+  for(var i=0;i<recentTools.length;i++){
+    var t = tools[recentTools[i]]; if(!t) continue;
+    h += '<button type="button" class="recent-chip" data-recent="' + t.id + '">' + t.icon + " " + t.name + '</button>';
+  }
+  row.innerHTML = h;
+}
+function pickTotd(){
+  if(!tools.length) return;
+  var day = Math.floor(Date.now()/86400000);
+  totdId = day % tools.length;
+  var t = tools[totdId];
+  if($("totdName")) $("totdName").textContent = t.name;
+  if($("totdIco")) $("totdIco").textContent = t.icon;
+}
+function updateStatus(){
+  if($("statusUser")) $("statusUser").textContent = myProfile.username || "Guest";
+  if($("statusScans")) $("statusScans").textContent = scans + " scans";
+  if($("statusLvl")) $("statusLvl").textContent = "LVL " + lvl();
+}
+function openSpot(){
+  $("spotOv").classList.add("open");
+  $("spotIn").value = "";
+  $("spotIn").focus();
+  filterSpot();
+}
+function closeSpot(){ $("spotOv").classList.remove("open"); }
+function filterSpot(){
+  var q = ($("spotIn").value||"").toLowerCase();
+  var acts = [
+    {icon:"🛡️", label:"Tools", meta:"Page", run:function(){ go("tools"); closeSpot(); }},
+    {icon:"⭐", label:"Favorites", meta:"Page", run:function(){ go("favorites"); closeSpot(); }},
+    {icon:"📢", label:"News", meta:"Page", run:function(){ go("announcements"); closeSpot(); }},
+    {icon:"📋", label:"Changelog", meta:"Page", run:function(){ go("changelog"); closeSpot(); }},
+    {icon:"📦", label:"Repos", meta:"Page", run:function(){ go("repos"); closeSpot(); }},
+    {icon:"🧩", label:"Modules", meta:"Page", run:function(){ go("modules"); closeSpot(); }},
+    {icon:"📊", label:"Dashboard", meta:"Page", run:function(){ go("dashboard"); closeSpot(); }},
+    {icon:"⌨️", label:"Shortcuts", meta:"Page", run:function(){ go("shortcuts"); closeSpot(); }},
+    {icon:"⚙️", label:"Settings", meta:"Action", run:function(){ closeSpot(); $("settingsOv").classList.add("open"); }},
+    {icon:"👤", label:"Profile", meta:"Action", run:function(){ closeSpot(); openProfile(); }},
+    {icon:"🔄", label:"Sync live feed", meta:"Action", run:function(){ closeSpot(); fetchCloudPosts(); toast("Syncing…"); }},
+    {icon:"📜", label:"Legal notice", meta:"Action", run:function(){ closeSpot(); $("legalOv").classList.add("open"); }},
+    {icon:"🎲", label:"Random tool", meta:"Action", run:function(){ closeSpot(); if(tools.length) openTool(Math.floor(Math.random()*tools.length)); }}
+  ];
+  if(owner) acts.push({icon:"🎖️", label:"Badge Console", meta:"Owner", run:function(){ closeSpot(); openBadgeConsole(); }});
+  var hits = tools.filter(function(t){
+    return !q || t.name.toLowerCase().indexOf(q)>=0 || t.cat.toLowerCase().indexOf(q)>=0;
+  }).slice(0,10).map(function(t){
+    return {icon:t.icon, label:t.name, meta:t.cat, run:function(){ openTool(t.id); closeSpot(); }};
+  });
+  var base = q ? acts.filter(function(a){ return a.label.toLowerCase().indexOf(q)>=0; }) : acts;
+  spotItems = base.concat(hits);
+  spotIdx = 0;
+  renderSpot();
+}
+function renderSpot(){
+  var list = $("spotList"); if(!list) return;
+  if(!spotItems.length){ list.innerHTML = '<div class="empty">No results</div>'; return; }
+  var h = "";
+  for(var i=0;i<spotItems.length;i++){
+    var it = spotItems[i];
+    h += '<div class="spot-item' + (i===spotIdx?' sel':'') + '" data-si="' + i + '"><span>' + it.icon + '</span><span>' + it.label + '</span><span class="meta">' + it.meta + '</span></div>';
+  }
+  list.innerHTML = h;
+}
+
 function lvl(){ return Math.floor(xp/100)+1; }
 function updateXP(){
   $("xpLvl").textContent = "LVL " + lvl();
@@ -939,43 +1459,94 @@ function openTool(id){
   $("log").classList.remove("on"); $("log").innerHTML = "";
   $("prog").classList.remove("on"); $("progF").style.width = "0";
   $("btnFavTool").textContent = favs.has(id) ? "★ Fav" : "☆ Fav";
+  var v = $("scanVerdict"); if(v){ v.className="verdict"; v.textContent=""; }
+  var cr=$("btnCopyReport"); if(cr) cr.classList.remove("show");
+  setScanSteps(null, {});
   $("toolOv").classList.add("open");
+  pushRecent(id);
   act("Opened <span>" + cur.name + "</span>");
 }
 
-function runScan(fname){
-  var log = $("log"), prog = $("prog"), fill = $("progF");
+function setScanSteps(active, doneMap){
+  var steps = document.querySelectorAll("#scanSteps .scan-step");
+  for(var i=0;i<steps.length;i++){
+    var s = steps[i];
+    var id = s.getAttribute("data-step");
+    s.classList.remove("run","done","fail");
+    if(doneMap && doneMap[id] === "fail") s.classList.add("fail");
+    else if(doneMap && doneMap[id]) s.classList.add("done");
+    else if(id === active) s.classList.add("run");
+  }
+}
+function runScan(fname, mode){
+  mode = mode || "full";
+  var log = $("log"), prog = $("prog"), fill = $("progF"), verdict = $("scanVerdict");
   log.classList.add("on"); log.innerHTML = "";
   prog.classList.add("on"); fill.style.width = "0";
-  var name = fname || "payload.jar";
+  if(verdict){ verdict.className = "verdict"; verdict.textContent = ""; }
+  setScanSteps(null, {});
+  var name = fname || "sample_" + (cur ? cur.id : 0) + ".jar";
   var tool = cur ? cur.name : "Scanner";
-  var result = Math.random() > 0.82 ? "SUSPICIOUS" : "CLEAN";
+  var roll = Math.random();
+  var result = roll > 0.88 ? "MALICIOUS" : (roll > 0.72 ? "SUSPICIOUS" : "CLEAN");
+  // bias by tool name keywords
+  if(cur && /RAT|Malware|Hunter|0-Day|Crypter|FUD|Inject/i.test(cur.name) && Math.random()>0.55) result = Math.random()>0.5 ? "SUSPICIOUS" : "MALICIOUS";
+  var entropy = (3.2 + Math.random()*4.5).toFixed(2);
+  var hash = "";
+  var chars = "0123456789abcdef";
+  for(var h=0;h<16;h++) hash += chars[Math.floor(Math.random()*16)];
   var lines = [
-    {t:"info",m:"[INIT] "+tool,p:8},{t:"info",m:"[FILE] "+name,p:20},
-    {t:"info",m:"[HASH] computing…",p:35},{t:"ok",m:"[HASH] verified",p:48},
-    {t:"info",m:"[SCAN] YARA + heuristics",p:62},
-    {t:Math.random()>0.7?"warn":"ok",m:Math.random()>0.7?"[WARN] high entropy":"[OK] entropy normal",p:78},
-    {t:result==="SUSPICIOUS"?"err":"ok",m:result==="SUSPICIOUS"?"[ALERT] indicator match":"[OK] clean signatures",p:92},
-    {t:"info",m:"[DONE] "+(Math.random()+0.3).toFixed(2)+"s",p:100},
-    {t:"ok",m:"[RESULT] "+result}
+    {t:"info", m:"[INIT] " + tool + " (" + mode + ")", p:4, step:"hash"},
+    {t:"info", m:"[FILE] " + name + " · " + (12+Math.floor(Math.random()*900)) + " KB", p:10, step:"hash"},
+    {t:"info", m:"[HASH] SHA-256 " + hash + "…", p:18, step:"hash"},
+    {t:"ok", m:"[HASH] fingerprint stored", p:24, step:"hash", done:"hash"},
+    {t:"info", m:"[SIG] loading YARA / IOC rules…", p:32, step:"sig"},
+    {t: result==="CLEAN"?"ok":"warn", m: result==="CLEAN"?"[SIG] no exact signature hit":"[SIG] partial rule match", p:40, step:"sig", done:"sig"},
+    {t:"info", m:"[HEUR] entropy " + entropy + " / 8.0", p:48, step:"heur"},
+    {t: parseFloat(entropy)>6.5?"warn":"ok", m: parseFloat(entropy)>6.5?"[HEUR] high entropy — possible packing":"[HEUR] entropy within normal range", p:55, step:"heur"},
+    {t:"info", m:"[HEUR] string / API pattern analysis…", p:62, step:"heur", done:"heur"},
+    {t:"info", m:"[STRUCT] parsing PE / JAR / class structure…", p:70, step:"pe"},
+    {t: result==="MALICIOUS"?"err":"ok", m: result==="MALICIOUS"?"[STRUCT] suspicious entry / injector pattern":"[STRUCT] structure looks consistent", p:78, step:"pe", done:"pe"},
+    {t:"info", m:"[NET] checking C2 / beacon indicators…", p:85, step:"net"},
+    {t: result!=="CLEAN"?"warn":"ok", m: result!=="CLEAN"?"[NET] possible outbound IOC pattern":"[NET] no network IOC", p:90, step:"net", done:"net"},
+    {t:"info", m:"[REPORT] compiling verdict…", p:96, step:"report"},
+    {t: result==="CLEAN"?"ok":(result==="SUSPICIOUS"?"warn":"err"), m:"[RESULT] " + result, p:100, step:"report", done:"report"}
   ];
+  if(mode === "quick") lines = lines.filter(function(L, idx){ return idx % 2 === 0 || L.m.indexOf("[RESULT]")===0 || L.m.indexOf("[INIT]")===0; });
+  if(mode === "deep"){
+    lines.splice(8, 0, {t:"info", m:"[DEEP] sandbox behavior simulation…", p:58, step:"heur"});
+    lines.splice(9, 0, {t:"info", m:"[DEEP] persistence & injection paths…", p:66, step:"pe"});
+  }
   var i = 0;
+  var doneMap = {};
   (function next(){
     if(i >= lines.length){
       scans++; localStorage.setItem("kt_scans", scans);
       $("sScans").textContent = scans;
-      addXP(result==="SUSPICIOUS" ? 8 : 5);
-      if(result==="SUSPICIOUS") riskScore = Math.min(100, riskScore + 8); else riskScore = Math.max(0, riskScore - 1);
+      addXP(result==="MALICIOUS" ? 12 : result==="SUSPICIOUS" ? 8 : 5);
+      if(result==="MALICIOUS") riskScore = Math.min(100, riskScore + 14);
+      else if(result==="SUSPICIOUS") riskScore = Math.min(100, riskScore + 7);
+      else riskScore = Math.max(0, riskScore - 2);
       updateRiskUI(); updateDash();
+      if(verdict){
+        verdict.className = "verdict show " + (result==="CLEAN"?"clean": result==="SUSPICIOUS"?"warn":"bad");
+        verdict.textContent = result === "CLEAN" ? "✓ CLEAN — no malware indicators" : result === "SUSPICIOUS" ? "⚠ SUSPICIOUS — review manually" : "✕ MALICIOUS — high confidence threat";
+      }
+      lastReport = "KettehTools Scan Report\nTool: " + tool + "\nFile: " + name + "\nMode: " + mode + "\nResult: " + result + "\nTime: " + new Date().toISOString() + "\nEntropy: " + entropy + "\nHash: " + hash + "…\n— © KettehTools by Ketteh";
+      var cr = $("btnCopyReport"); if(cr) cr.classList.add("show");
+      var sb = $("sScans"); if(sb){ sb.classList.remove("pulse"); void sb.offsetWidth; sb.classList.add("pulse"); }
+      updateStatus();
       toast("Scan complete: " + result);
       act("Scan <span>" + tool + "</span> → " + result);
       return;
     }
     var L = lines[i];
     if(L.p != null) fill.style.width = L.p + "%";
+    if(L.step) setScanSteps(L.step, doneMap);
+    if(L.done){ doneMap[L.done] = (L.t === "err") ? "fail" : true; setScanSteps(L.step, doneMap); }
     var d = document.createElement("div"); d.className = "ll " + L.t; d.textContent = L.m;
     log.appendChild(d); log.scrollTop = 99999;
-    i++; setTimeout(next, 130 + Math.random()*140);
+    i++; setTimeout(next, mode==="quick" ? 80 : mode==="deep" ? 160 : 120 + Math.random()*100);
   })();
 }
 
@@ -1061,11 +1632,65 @@ function postHTML(p, type){
     '<div class="pbo">' + String(p.body||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\\n/g,"<br>") + '</div>' +
     (p.ver ? '<span class="pv">' + p.ver + '</span>' : '') + actions + '</div>';
 }
-function loadPosts(){
-  var anns = JSON.parse(localStorage.getItem("kt_ann")||"[]");
-  var cls = JSON.parse(localStorage.getItem("kt_cl")||"[]");
+function renderPostFeeds(anns, cls){
+  anns = anns || [];
+  cls = cls || [];
+  localStorage.setItem("kt_ann", JSON.stringify(anns));
+  localStorage.setItem("kt_cl", JSON.stringify(cls));
   $("annFeed").innerHTML = anns.length ? anns.map(function(p){ return postHTML(p, "ann"); }).join("") : '<div class="empty">No announcements yet</div>';
   $("clFeed").innerHTML = cls.length ? cls.map(function(p){ return postHTML(p, "cl"); }).join("") : '<div class="empty">No changelog yet</div>';
+  updateDash();
+}
+function loadPosts(){
+  // Show cached immediately
+  var anns = JSON.parse(localStorage.getItem("kt_ann")||"[]");
+  var cls = JSON.parse(localStorage.getItem("kt_cl")||"[]");
+  renderPostFeeds(anns, cls);
+  // Then pull shared cloud feed for everyone
+  fetchCloudPosts();
+}
+function fetchCloudPosts(){
+  if(cloudBusy) return;
+  cloudBusy = true;
+  fetch(CLOUD_URL, { method: "GET", headers: { "Accept": "application/json", "Cache-Control": "no-cache" } })
+    .then(function(r){
+      if(!r.ok) throw new Error("cloud " + r.status);
+      return r.json();
+    })
+    .then(function(data){
+      var anns = data.announcements || [];
+      var cls = data.changelog || [];
+      if(data.grants && typeof data.grants === "object") grantedBadges = data.grants;
+      renderPostFeeds(anns, cls);
+      updateProfileUI();
+      act("Synced <span>shared feed</span> (" + (anns.length+cls.length) + " posts)");
+      if($("statusCloud")) $("statusCloud").textContent = "Cloud live";
+      if($("statusDot")){ $("statusDot").className = "dot on"; }
+    })
+    .catch(function(err){
+      console.warn("Cloud fetch failed, using local cache", err);
+      act("Cloud sync offline — showing local cache");
+      if($("statusCloud")) $("statusCloud").textContent = "Cloud offline";
+      if($("statusDot")){ $("statusDot").className = "dot off"; }
+    })
+    .finally(function(){ cloudBusy = false; });
+}
+function saveCloudPosts(anns, cls){
+  var payload = {
+    announcements: anns || [],
+    changelog: cls || [],
+    grants: grantedBadges || {},
+    updatedAt: new Date().toISOString(),
+    site: "KettehTools"
+  };
+  return fetch(CLOUD_URL, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    body: JSON.stringify(payload)
+  }).then(function(r){
+    if(!r.ok) throw new Error("cloud save " + r.status);
+    return r.json().catch(function(){ return payload; });
+  });
 }
 function publish(type){
   if(!owner){ toast("Enable Owner Mode first"); return; }
@@ -1083,15 +1708,19 @@ function publish(type){
           break;
         }
       }
-      toast("Announcement updated");
     } else {
       posts.unshift({id:Date.now(),title:title,body:body,author:"Ketteh",time:new Date().toISOString(),badges:badges});
-      toast("Announcement published — visible on this site");
     }
     localStorage.setItem("kt_ann", JSON.stringify(posts));
     $("annTitle").value=""; $("annBody").value=""; $("annEditId").value="";
     $("annComposer").classList.remove("show");
+    $("annPublish").textContent = "Publish";
     setSelectedBadges("annBadges", ["o","f","v","e","d"]);
+    renderPostFeeds(posts, JSON.parse(localStorage.getItem("kt_cl")||"[]"));
+    toast(editId ? "Saving update for everyone…" : "Publishing for everyone…");
+    saveCloudPosts(posts, JSON.parse(localStorage.getItem("kt_cl")||"[]"))
+      .then(function(){ toast(editId ? "Updated — live for everyone" : "Published — live for everyone"); act("Cloud publish <span>ok</span>"); })
+      .catch(function(){ toast("Saved locally — cloud sync failed"); });
   } else {
     var ver = $("clVer").value.trim(), t2 = $("clTitle").value.trim(), b2 = $("clBody").value.trim();
     var editId2 = $("clEditId").value;
@@ -1107,17 +1736,20 @@ function publish(type){
           break;
         }
       }
-      toast("Changelog updated");
     } else {
       posts2.unshift({id:Date.now(),ver:ver,title:t2,body:b2,author:"Ketteh",time:new Date().toISOString(),badges:badges2});
-      toast("Changelog published");
     }
     localStorage.setItem("kt_cl", JSON.stringify(posts2));
     $("clVer").value=""; $("clTitle").value=""; $("clBody").value=""; $("clEditId").value="";
     $("clComposer").classList.remove("show");
+    $("clPublish").textContent = "Publish";
     setSelectedBadges("clBadges", ["o","f","v","e","d"]);
+    renderPostFeeds(JSON.parse(localStorage.getItem("kt_ann")||"[]"), posts2);
+    toast(editId2 ? "Saving update for everyone…" : "Publishing for everyone…");
+    saveCloudPosts(JSON.parse(localStorage.getItem("kt_ann")||"[]"), posts2)
+      .then(function(){ toast(editId2 ? "Updated — live for everyone" : "Published — live for everyone"); act("Cloud publish <span>ok</span>"); })
+      .catch(function(){ toast("Saved locally — cloud sync failed"); });
   }
-  loadPosts();
 }
 function editPost(type, id){
   if(!owner) return;
@@ -1150,11 +1782,17 @@ function editPost(type, id){
 }
 function deletePost(type, id){
   if(!owner) return;
-  if(!confirm("Delete this post?")) return;
-  var key = type === "ann" ? "kt_ann" : "kt_cl";
-  var posts = JSON.parse(localStorage.getItem(key)||"[]").filter(function(p){ return String(p.id) !== String(id); });
-  localStorage.setItem(key, JSON.stringify(posts));
-  loadPosts(); toast("Deleted");
+  if(!confirm("Delete this post for everyone?")) return;
+  var anns = JSON.parse(localStorage.getItem("kt_ann")||"[]");
+  var cls = JSON.parse(localStorage.getItem("kt_cl")||"[]");
+  if(type === "ann") anns = anns.filter(function(p){ return String(p.id) !== String(id); });
+  else cls = cls.filter(function(p){ return String(p.id) !== String(id); });
+  localStorage.setItem("kt_ann", JSON.stringify(anns));
+  localStorage.setItem("kt_cl", JSON.stringify(cls));
+  renderPostFeeds(anns, cls);
+  saveCloudPosts(anns, cls)
+    .then(function(){ toast("Deleted for everyone"); })
+    .catch(function(){ toast("Deleted locally — cloud sync failed"); });
 }
 function exportPosts(){
   var data = {
@@ -1175,10 +1813,16 @@ function importPosts(file){
   reader.onload = function(){
     try {
       var data = JSON.parse(reader.result);
-      if(data.announcements) localStorage.setItem("kt_ann", JSON.stringify(data.announcements));
-      if(data.changelog) localStorage.setItem("kt_cl", JSON.stringify(data.changelog));
-      loadPosts();
-      toast("Imported " + ((data.announcements||[]).length + (data.changelog||[]).length) + " posts");
+      var anns = data.announcements || [];
+      var cls = data.changelog || [];
+      renderPostFeeds(anns, cls);
+      if(owner){
+        saveCloudPosts(anns, cls)
+          .then(function(){ toast("Imported & published for everyone"); })
+          .catch(function(){ toast("Imported locally only"); });
+      } else {
+        toast("Imported " + (anns.length + cls.length) + " posts (local)");
+      }
     } catch(err){ toast("Invalid file"); }
   };
   reader.readAsText(file);
@@ -1223,6 +1867,8 @@ function setOwnerUnlocked(on){
     $("btnPost").classList.remove("hid");
     if($("togOwner")) $("togOwner").classList.add("on");
     if($("vaultStatus")) $("vaultStatus").textContent = "Unlocked — full owner controls active.";
+    myProfile.username = "Ketteh";
+    localStorage.setItem("kt_profile", JSON.stringify(myProfile));
   } else {
     sessionStorage.removeItem("kt_owner_ok");
     S.ownerUnlocked = false;
@@ -1231,10 +1877,16 @@ function setOwnerUnlocked(on){
     $("ownerUnlocked").classList.add("hid");
     $("btnPost").classList.add("hid");
     if($("vaultStatus")) $("vaultStatus").textContent = "Locked — enter password in Settings.";
+    // restore non-owner profile if was forced to Ketteh
+    var saved = JSON.parse(localStorage.getItem("kt_profile")||"{}");
+    if(saved.username === "Ketteh" && !sessionStorage.getItem("kt_owner_ok")){
+      /* keep until they edit */
+    }
   }
   save();
   loadPosts();
   updateDash();
+  updateProfileUI();
 }
 function tryUnlockOwner(){
   var pwd = ($("ownerPwd").value || "");
@@ -1328,6 +1980,135 @@ function updateRiskUI(){
   else if(riskScore < 85){ label.textContent="HIGH"; label.style.color="var(--err)"; }
   else { label.textContent="CRITICAL"; label.style.color="var(--err)"; }
 }
+function isReservedName(name){
+  return RESERVED_NAMES.indexOf(String(name||"").trim().toLowerCase()) >= 0;
+}
+function myBadgeIds(){
+  if(owner) return ["o","f","v","e","d"];
+  var key = String(myProfile.username||"").trim().toLowerCase();
+  return grantedBadges[key] || [];
+}
+function badgeSpans(ids){
+  ids = ids || [];
+  var map = {};
+  for(var i=0;i<ALL_BADGES.length;i++) map[ALL_BADGES[i].id] = ALL_BADGES[i];
+  var h = "";
+  for(var j=0;j<ids.length;j++){
+    var b = map[ids[j]]; if(!b) continue;
+    h += '<span class="pb ' + b.cls + '">' + b.label + '</span>';
+  }
+  return h || '<span style="font-size:.75rem;color:var(--m)">No badges</span>';
+}
+function updateProfileUI(){
+  var name = myProfile.username || "Guest";
+  var letter = name.charAt(0).toUpperCase() || "U";
+  var ids = myBadgeIds();
+  var role = owner ? "Owner · Ketteh" : (ids.length ? ids.length + " badge" + (ids.length>1?"s":"") : "Member");
+  if($("profileName")) $("profileName").textContent = name;
+  if($("profileNameBig")) $("profileNameBig").textContent = name;
+  if($("profileRole")) $("profileRole").textContent = role;
+  if($("profileRoleBig")) $("profileRoleBig").textContent = role;
+  if($("profileAv")){ $("profileAv").textContent = letter; $("profileAv").classList.toggle("owner", owner); }
+  if($("profileAvBig")){ $("profileAvBig").textContent = letter; $("profileAvBig").classList.toggle("owner", owner); }
+  if($("profileBadgeList")) $("profileBadgeList").innerHTML = badgeSpans(ids);
+  if($("profileUserInput")) $("profileUserInput").value = (name === "Guest" ? "" : name);
+  if($("profileBioInput")) $("profileBioInput").value = myProfile.bio || "";
+  if($("qaBadgeConsole")) $("qaBadgeConsole").classList.toggle("hid", !owner);
+  updateStatus();
+}
+function openProfile(){
+  updateProfileUI();
+  $("profileOv").classList.add("open");
+}
+function saveProfile(){
+  var name = ($("profileUserInput").value || "").trim();
+  if(!name){ toast("Enter a username"); return; }
+  if(name.length < 2){ toast("Name too short"); return; }
+  if(isReservedName(name) && !owner){
+    toast('Username "Ketteh" is reserved for the owner');
+    return;
+  }
+  if(owner){
+    // Owner keeps identity Ketteh
+    myProfile.username = "Ketteh";
+  } else {
+    myProfile.username = name;
+  }
+  myProfile.bio = ($("profileBioInput").value || "").trim();
+  localStorage.setItem("kt_profile", JSON.stringify(myProfile));
+  updateProfileUI();
+  toast("Profile saved");
+  $("profileOv").classList.remove("open");
+  act("Profile set to <span>" + myProfile.username + "</span>");
+}
+function openBadgeConsole(){
+  if(!owner){ toast("Owner only"); return; }
+  renderBadgeShop();
+  renderGrantedUsers();
+  $("badgeOv").classList.add("open");
+}
+function renderBadgeShop(){
+  var shop = $("badgeShop"); if(!shop) return;
+  var h = "";
+  for(var i=0;i<ALL_BADGES.length;i++){
+    var b = ALL_BADGES[i];
+    if(b.id === "o" || b.id === "f") continue; // owner/founder only automatic
+    h += '<button type="button" class="give-badge" data-give="' + b.id + '">' + b.label + '</button>';
+  }
+  shop.innerHTML = h;
+}
+function renderGrantedUsers(){
+  var list = $("badgeUserList"); if(!list) return;
+  var keys = Object.keys(grantedBadges);
+  if(!keys.length){ list.innerHTML = '<div class="empty">No grants yet</div>'; return; }
+  var h = "";
+  for(var i=0;i<keys.length;i++){
+    var u = keys[i];
+    h += '<div class="user-row"><div class="profile-av" style="width:30px;height:30px;font-size:.75rem">' + u.charAt(0).toUpperCase() + '</div>' +
+      '<div class="name">' + u + '</div><div class="pbs">' + badgeSpans(grantedBadges[u]) + '</div></div>';
+  }
+  list.innerHTML = h;
+}
+function grantBadges(){
+  if(!owner) return;
+  var target = ($("badgeTarget").value || "").trim();
+  if(!target){ toast("Enter a username"); return; }
+  if(isReservedName(target)){ toast("Cannot grant to reserved names"); return; }
+  var selected = [];
+  var btns = $("badgeShop").querySelectorAll(".give-badge.on");
+  for(var i=0;i<btns.length;i++) selected.push(btns[i].getAttribute("data-give"));
+  if(!selected.length){ toast("Select at least one badge"); return; }
+  var key = target.toLowerCase();
+  var existing = grantedBadges[key] || [];
+  for(var j=0;j<selected.length;j++){
+    if(existing.indexOf(selected[j]) < 0) existing.push(selected[j]);
+  }
+  grantedBadges[key] = existing;
+  pushGrantsToCloud().then(function(){
+    toast("Granted to " + target);
+    renderGrantedUsers();
+    updateProfileUI();
+    act("Granted badges to <span>" + target + "</span>");
+  }).catch(function(){ toast("Grant saved locally — cloud failed"); renderGrantedUsers(); updateProfileUI(); });
+}
+function revokeBadges(){
+  if(!owner) return;
+  var target = ($("badgeTarget").value || "").trim();
+  if(!target){ toast("Enter a username"); return; }
+  var key = target.toLowerCase();
+  delete grantedBadges[key];
+  pushGrantsToCloud().then(function(){
+    toast("Revoked all for " + target);
+    renderGrantedUsers();
+    updateProfileUI();
+  }).catch(function(){ toast("Revoked locally"); renderGrantedUsers(); updateProfileUI(); });
+}
+function pushGrantsToCloud(){
+  var anns = JSON.parse(localStorage.getItem("kt_ann")||"[]");
+  var cls = JSON.parse(localStorage.getItem("kt_cl")||"[]");
+  return saveCloudPosts(anns, cls);
+}
+
 
 
 function applyDens(v){
@@ -1375,8 +2156,14 @@ function init(){
   }
 
   bind();
+  updateProfileUI();
+  pickTotd();
+  renderRecent();
+  updateStatus();
+  if(!localStorage.getItem("kt_welcomed")) $("welcomeOv").classList.add("open");
   act("Loaded <span>" + TOOLS.length + "</span> tools");
   console.log("[KettehTools] ready");
+  setInterval(function(){ fetchCloudPosts(); }, 30000);
 }
 
 function bind(){
@@ -1392,7 +2179,16 @@ function bind(){
     if(!owner){ toast("Enable Owner Mode in Settings"); return; }
     go("announcements"); $("annComposer").classList.add("show");
   };
-  $("btnShuffle").onclick = function(){ $("sortFilter").value="rand"; filterTools(); };
+  $("btnShuffle").onclick = function(){ $("sortFilter").value="rand"; filterTools(); toast("Shuffled"); };
+  if($("btnRefreshTools")) $("btnRefreshTools").onclick = function(){ filterTools(); toast("Grid refreshed"); };
+  if($("btnRandomTool")) $("btnRandomTool").onclick = function(){
+    if(!tools.length) return;
+    var id = Math.floor(Math.random()*tools.length);
+    openTool(id);
+  };
+  if($("btnQuickDash")) $("btnQuickDash").onclick = function(){ go("dashboard"); };
+  if($("btnQuickMods")) $("btnQuickMods").onclick = function(){ go("modules"); };
+
 
   $("settingsClose").onclick = function(){ $("settingsOv").classList.remove("open"); };
   $("settingsOv").onclick = function(e){ if(e.target===$("settingsOv")) $("settingsOv").classList.remove("open"); };
@@ -1433,8 +2229,28 @@ function bind(){
     if(preset) setTheme(preset.getAttribute("data-theme"));
   };
 
-  $("btnRunScan").onclick = function(){ runScan(); };
+  $("btnRunScan").onclick = function(){ runScan(null, "full"); };
+  if($("btnQuickScan")) $("btnQuickScan").onclick = function(){ runScan(null, "quick"); };
+  if($("btnDeepScan")) $("btnDeepScan").onclick = function(){ runScan(null, "deep"); };
   $("btnFavTool").onclick = function(){ if(cur) toggleFav(cur.id); };
+  if($("profileChip")) $("profileChip").onclick = openProfile;
+  if($("btnProfile")) $("btnProfile").onclick = openProfile;
+  if($("profileClose")) $("profileClose").onclick = function(){ $("profileOv").classList.remove("open"); };
+  if($("profileCancel")) $("profileCancel").onclick = function(){ $("profileOv").classList.remove("open"); };
+  if($("profileSave")) $("profileSave").onclick = saveProfile;
+  if($("profileOv")) $("profileOv").onclick = function(e){ if(e.target===$("profileOv")) $("profileOv").classList.remove("open"); };
+  if($("qaProfile")) $("qaProfile").onclick = openProfile;
+  if($("qaBadgeConsole")) $("qaBadgeConsole").onclick = openBadgeConsole;
+  if($("badgeClose")) $("badgeClose").onclick = function(){ $("badgeOv").classList.remove("open"); };
+  if($("badgeOv")) $("badgeOv").onclick = function(e){ if(e.target===$("badgeOv")) $("badgeOv").classList.remove("open"); };
+  if($("badgeGrant")) $("badgeGrant").onclick = grantBadges;
+  if($("badgeRevoke")) $("badgeRevoke").onclick = revokeBadges;
+  if($("badgeRefresh")) $("badgeRefresh").onclick = function(){ fetchCloudPosts(); setTimeout(renderGrantedUsers, 500); toast("Refreshed"); };
+  if($("badgeShop")) $("badgeShop").onclick = function(e){
+    var b = e.target.closest(".give-badge"); if(!b) return;
+    b.classList.toggle("on");
+  };
+
   $("dropZone").onclick = function(){ $("fileIn").click(); };
   $("fileIn").onchange = function(e){ if(e.target.files[0]) runScan(e.target.files[0].name); };
   $("dropZone").ondragover = function(e){ e.preventDefault(); this.classList.add("over"); };
@@ -1518,6 +2334,9 @@ function bind(){
       if(p) p.classList.toggle("hid", panels[j] !== "owner");
     }
   };
+  if($("qaLegal")) $("qaLegal").onclick = function(){ $("legalOv").classList.add("open"); };
+  if($("qaRefreshCloud")) $("qaRefreshCloud").onclick = function(){ toast("Syncing live feed…"); fetchCloudPosts(); };
+
   $("btnResetRisk").onclick = function(){ riskScore=18; updateRiskUI(); toast("Risk meter reset"); };
 
 
@@ -1542,8 +2361,28 @@ function bind(){
   $("annPublish").onclick = function(){ publish("ann"); };
   $("clPublish").onclick = function(){ publish("cl"); };
 
+  if($("btnLegal")) $("btnLegal").onclick = function(){ $("legalOv").classList.add("open"); };
+  if($("btnLegalShort")) $("btnLegalShort").onclick = function(){
+    toast("© KettehTools — copying/stealing leads to DMCA, reports & enforcement");
+  };
+  if($("btnCredit")) $("btnCredit").onclick = function(){
+    var t = "KettehTools © 2026 by Ketteh — All rights reserved. Do not copy or rebrand.";
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(function(){ toast("Credit line copied"); }).catch(function(){ toast(t); });
+    } else { toast(t); }
+  };
+  if($("legalClose")) $("legalClose").onclick = function(){ $("legalOv").classList.remove("open"); };
+  if($("legalOk")) $("legalOk").onclick = function(){ $("legalOv").classList.remove("open"); toast("Terms acknowledged"); };
+  if($("legalCopy")) $("legalCopy").onclick = function(){
+    var t = "© 2026 KettehTools — All Rights Reserved. Owned by Ketteh. Unauthorized copying, rebranding, redistribution, or claim of ownership is prohibited and will be enforced via DMCA, platform reports, removal, and further action as applicable.";
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(function(){ toast("Legal notice copied"); }).catch(function(){ toast("Copy failed"); });
+    } else { toast("Clipboard unavailable"); }
+  };
+  if($("legalOv")) $("legalOv").onclick = function(e){ if(e.target===$("legalOv")) $("legalOv").classList.remove("open"); };
+
   document.onkeydown = function(e){
-    if(e.key === "Escape"){ $("settingsOv").classList.remove("open"); $("toolOv").classList.remove("open"); $("annComposer").classList.remove("show"); $("clComposer").classList.remove("show"); return; }
+    if(e.key === "Escape"){ $("settingsOv").classList.remove("open"); $("toolOv").classList.remove("open"); if($("legalOv")) $("legalOv").classList.remove("open"); if($("profileOv")) $("profileOv").classList.remove("open"); if($("badgeOv")) $("badgeOv").classList.remove("open"); closeSpot(); $("annComposer").classList.remove("show"); $("clComposer").classList.remove("show"); return; }
     if(e.target && (e.target.tagName==="INPUT" || e.target.tagName==="TEXTAREA")) return;
     if(e.key==="1") go("tools");
     if(e.key==="2") go("favorites");
@@ -1555,13 +2394,61 @@ function bind(){
     if(e.key==="s" || e.key==="S") $("settingsOv").classList.add("open");
     if(e.key==="r" || e.key==="R"){ go("tools"); $("sortFilter").value="rand"; filterTools(); }
     if(e.key==="?") go("shortcuts");
-    if((e.ctrlKey||e.metaKey) && e.key==="k"){ e.preventDefault(); go("tools"); $("search").focus(); }
+    if((e.ctrlKey||e.metaKey) && e.key==="k"){ e.preventDefault(); openSpot(); }
   };
   document.onmousemove = function(e){
     document.documentElement.style.setProperty("--mx", e.clientX + "px");
     document.documentElement.style.setProperty("--my", e.clientY + "px");
   };
 
+
+
+  // Spotlight
+  if($("statusPalette")) $("statusPalette").onclick = openSpot;
+  if($("spotOv")) $("spotOv").onclick = function(e){ if(e.target===$("spotOv")) closeSpot(); };
+  if($("spotIn")){
+    $("spotIn").oninput = filterSpot;
+    $("spotIn").onkeydown = function(e){
+      if(e.key==="ArrowDown"){ e.preventDefault(); spotIdx=Math.min(spotIdx+1,spotItems.length-1); renderSpot(); }
+      else if(e.key==="ArrowUp"){ e.preventDefault(); spotIdx=Math.max(spotIdx-1,0); renderSpot(); }
+      else if(e.key==="Enter" && spotItems[spotIdx]){ e.preventDefault(); spotItems[spotIdx].run(); }
+      else if(e.key==="Escape") closeSpot();
+    };
+  }
+  if($("spotList")) $("spotList").onclick = function(e){
+    var it = e.target.closest("[data-si]"); if(it && spotItems[+it.getAttribute("data-si")]) spotItems[+it.getAttribute("data-si")].run();
+  };
+  // Welcome
+  if($("welcomeGo")) $("welcomeGo").onclick = function(){
+    localStorage.setItem("kt_welcomed","1");
+    $("welcomeOv").classList.remove("open");
+    toast("Welcome to KettehTools");
+  };
+  // TOTD + recent
+  if($("totd")) $("totd").onclick = function(){ openTool(totdId); };
+  document.addEventListener("click", function(e){
+    var rc = e.target.closest("[data-recent]");
+    if(rc) openTool(+rc.getAttribute("data-recent"));
+  });
+  // Notifs
+  if($("notifBtn")) $("notifBtn").onclick = function(e){
+    e.stopPropagation();
+    $("notifPanel").classList.toggle("open");
+    if($("notifBadge")) $("notifBadge").classList.remove("show");
+  };
+  document.addEventListener("click", function(e){
+    if($("notifPanel") && !e.target.closest(".notif-wrap")) $("notifPanel").classList.remove("open");
+  });
+  // Status bar
+  if($("statusSync")) $("statusSync").onclick = function(){ fetchCloudPosts(); toast("Syncing…"); };
+  if($("statusLegal")) $("statusLegal").onclick = function(){ $("legalOv").classList.add("open"); };
+  // Copy report
+  if($("btnCopyReport")) $("btnCopyReport").onclick = function(){
+    if(!lastReport){ toast("Run a scan first"); return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(lastReport).then(function(){ toast("Report copied"); }).catch(function(){ toast("Copy failed"); });
+    } else toast("Clipboard unavailable");
+  };
 
   // Custom cursor
   var cur = $("cur"), ring = $("curRing");
@@ -1631,6 +2518,8 @@ function bind(){
 
   // Export / import
   if($("btnExportPosts")) $("btnExportPosts").onclick = exportPosts;
+  if($("btnRefreshFeed")) $("btnRefreshFeed").onclick = function(){ toast("Refreshing live feed…"); fetchCloudPosts(); };
+
   if($("btnImportPosts")) $("btnImportPosts").onclick = function(){ $("importFile").click(); };
   if($("importFile")) $("importFile").onchange = function(e){ if(e.target.files[0]) importPosts(e.target.files[0]); };
 
